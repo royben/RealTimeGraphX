@@ -7,6 +7,12 @@ Typical use case is, scientific measurements applications which requires real-ti
 
 RealTimeGraphX has a number of built-in data point types (axis) like Double, Float, Int32 and TimeSpan, but you can easily implement any kind of custom data type by inheriting and implementing the mathematical logic for that type.
 
+Features:
+- High performance
+- MVVM support
+- Any type of data point
+- Zooming and panning
+
 <br/>
 <hr/>
 <br/>

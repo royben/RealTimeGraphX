@@ -25,3 +25,7 @@ The solution contains demo projects for WPF and UWP.
  
 ![alt tag](https://github.com/royben/RealTimeGraphX/blob/master/Preview/gradient.png)
  
+<br/>
+<hr/>
+<br/>
+

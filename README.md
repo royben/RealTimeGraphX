@@ -21,7 +21,7 @@ The solution contains demo projects for WPF and UWP.
  
 ![alt tag](https://github.com/royben/RealTimeGraphX/blob/master/Preview/multi.PNG)
   
- <h3>Gradient Fill<h3>
+<h3>Gradient Fill<h3>
  
 ![alt tag](https://github.com/royben/RealTimeGraphX/blob/master/Preview/gradient.png)
 

@@ -15,7 +15,7 @@ The solution contains demo projects for WPF and UWP.
 
 <h3>Multi Series<h3>
  
-![alt tag](https://github.com/royben/RealTimeGraphX/blob/master/Preview/multi.png)
+![alt tag](https://github.com/royben/RealTimeGraphX/blob/master/Preview/multi.PNG)
   
  <h3>Gradient Fill<h3>
  

@@ -55,7 +55,7 @@ Each platform (WPF/UWP etc.) should implement it's own *IGraphDataSeries* and *I
 <hr/>
 <br/>
 
-<h3>Usage Example<h3>
+<h3>Example<h3>
  
  ##### Model.cs
  

@@ -24,6 +24,10 @@ The solution contains demo projects for WPF and UWP.
  <h3>Gradient Fill<h3>
  
 ![alt tag](https://github.com/royben/RealTimeGraphX/blob/master/Preview/gradient.png)
+
+<br/>
+<hr/>
+<br/>
  
 The follwing diagrams demonstrates the connections between graph components and how they are implemented on each platform.
 

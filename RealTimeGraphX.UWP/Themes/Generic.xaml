@@ -1,0 +1,145 @@
+<ResourceDictionary
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:canvas="using:Microsoft.Graphics.Canvas.UI.Xaml"
+    xmlns:controls="using:Microsoft.Toolkit.Uwp.UI.Controls"
+    xmlns:Interactivity="using:Microsoft.Xaml.Interactivity"
+    xmlns:Core="using:Microsoft.Xaml.Interactions.Core" 
+    xmlns:local="using:RealTimeGraphX.UWP">
+
+    <Style TargetType="local:UwpGraphSurface">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="local:UwpGraphSurface">
+                    <Border
+                        Background="{TemplateBinding Background}"
+                        BorderBrush="{TemplateBinding BorderBrush}"
+                        BorderThickness="{TemplateBinding BorderThickness}">
+
+                        <Grid x:Name="PART_Grid" Margin="{TemplateBinding Padding}">
+                            <canvas:CanvasControl x:Name="PART_Canvas2D" ClearColor="Transparent" />
+
+                            <Canvas x:Name="PART_SelectionCanvas" Background="Transparent">
+                                <Rectangle x:Name="PART_SelectionRectangle" Fill="#7BFFFFFF" Canvas.Top="0" Canvas.Left="0" Width="0" Height="0" Visibility="Collapsed"></Rectangle>
+                            </Canvas>
+                        </Grid>
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <DataTemplate x:Key="vertical">
+        <controls:DockPanel VerticalAlignment="Top">
+            <Rectangle x:Name="rect" Width="4" controls:DockPanel.Dock="Right" Height="1" VerticalAlignment="Center" Fill="{Binding RelativeSource={RelativeSource Mode=TemplatedParent},Path=Foreground}">
+                <Interactivity:Interaction.Behaviors>
+                    <Core:DataTriggerBehavior x:Name="trigger" Binding="{Binding IsEven,Mode=OneWay}" Value="True" >
+                        <local:UwpDataTriggerAction TargetObject="{Binding ElementName=rect}" PropertyName="Width" Value="10"></local:UwpDataTriggerAction>
+                    </Core:DataTriggerBehavior>
+                </Interactivity:Interaction.Behaviors>
+            </Rectangle>
+            <TextBlock x:Name="txt"/>
+            <local:UwpBindingElement ElementName="txt" ElementPath="Text" DataContextPath="DisplayText"/>
+            <local:UwpDataTriggerElement ElementName="trigger" DataContextPath="IsEven" />
+        </controls:DockPanel>
+    </DataTemplate>
+
+    <DataTemplate x:Key="horizontal">
+        <controls:DockPanel HorizontalAlignment="Left">
+            <Rectangle x:Name="rect" Width="1" controls:DockPanel.Dock="Top" Height="4" HorizontalAlignment="Center" Fill="{Binding RelativeSource={RelativeSource Mode=TemplatedParent},Path=Foreground}">
+                <Interactivity:Interaction.Behaviors>
+                    <Core:DataTriggerBehavior x:Name="trigger" Binding="{Binding IsEven,Mode=OneWay}" Value="True" >
+                        <local:UwpDataTriggerAction TargetObject="{Binding ElementName=rect}" PropertyName="Height" Value="10"></local:UwpDataTriggerAction>
+                    </Core:DataTriggerBehavior>
+                </Interactivity:Interaction.Behaviors>
+            </Rectangle>
+            <TextBlock VerticalAlignment="Bottom" x:Name="txt" RenderTransformOrigin="0.5,0.5">
+                <TextBlock.RenderTransform>
+                    <RotateTransform Angle="-30" />
+                </TextBlock.RenderTransform>
+            </TextBlock>
+            <local:UwpBindingElement ElementName="txt" ElementPath="Text" DataContextPath="DisplayText"/>
+            <local:UwpDataTriggerElement ElementName="trigger" DataContextPath="IsEven" />
+        </controls:DockPanel>
+    </DataTemplate>
+
+    <Style TargetType="local:UwpGraphAxisControl">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="local:UwpGraphAxisControl">
+                    <Border Background="{TemplateBinding Background}"
+                            BorderBrush="{TemplateBinding BorderBrush}"
+                            BorderThickness="{TemplateBinding BorderThickness}">
+
+                        <Grid>
+                            <ItemsControl x:Name="PART_ItemsControl" ItemsSource="{TemplateBinding Items}" ItemTemplate="{TemplateBinding ItemTemplate}" DataContext="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}}">
+                                <ItemsControl.ItemsPanel>
+                                    <ItemsPanelTemplate>
+                                        <local:UwpGraphAxisPanel Orientation="{Binding Orientation}"></local:UwpGraphAxisPanel>
+                                    </ItemsPanelTemplate>
+                                </ItemsControl.ItemsPanel>
+                            </ItemsControl>
+
+                            <local:UwpDataTriggerElement ElementName="trig" DataContextPath="Orientation" DataContext="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}}" />
+                            <local:UwpDataTriggerElement ElementName="trig2" DataContextPath="Orientation" DataContext="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}}" />
+
+                            <Interactivity:Interaction.Behaviors>
+                                <Core:DataTriggerBehavior x:Name="trig" Binding="{TemplateBinding Orientation}" Value="Vertical" >
+                                    <local:UwpDataTriggerAction TargetObject="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}}" PropertyName="ItemTemplate" Value="{StaticResource vertical}"></local:UwpDataTriggerAction>
+                                </Core:DataTriggerBehavior>
+                                <Core:DataTriggerBehavior x:Name="trig2" Binding="{TemplateBinding Orientation}" Value="Horizontal" >
+                                    <local:UwpDataTriggerAction TargetObject="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}}" PropertyName="ItemTemplate" Value="{StaticResource horizontal}"></local:UwpDataTriggerAction>
+                                </Core:DataTriggerBehavior>
+                            </Interactivity:Interaction.Behaviors>
+                        </Grid>
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style TargetType="local:UwpGraphGridLines">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="local:UwpGraphGridLines">
+                    <Border Background="{TemplateBinding Background}"
+                            BorderBrush="{TemplateBinding BorderBrush}"
+                            BorderThickness="{TemplateBinding BorderThickness}">
+
+                        <Grid>
+                            <ItemsControl ItemsSource="{TemplateBinding HorizontalItems}">
+                                <ItemsControl.ItemsPanel>
+                                    <ItemsPanelTemplate>
+                                        <controls:UniformGrid Rows="1" Columns="{Binding RelativeSource={RelativeSource Mode=TemplatedParent},Path=Columns}"></controls:UniformGrid>
+                                    </ItemsPanelTemplate>
+                                </ItemsControl.ItemsPanel>
+                                <ItemsControl.ItemTemplate>
+                                    <DataTemplate>
+                                        <Rectangle Fill="{Binding RelativeSource={RelativeSource Mode=TemplatedParent},Path=Foreground}" Width="1"  HorizontalAlignment="Left" VerticalAlignment="Stretch"></Rectangle>
+                                    </DataTemplate>
+                                </ItemsControl.ItemTemplate>
+                            </ItemsControl>
+
+                            <ItemsControl ItemsSource="{TemplateBinding VerticalItems}">
+                                <ItemsControl.ItemsPanel>
+                                    <ItemsPanelTemplate>
+                                        <controls:UniformGrid Columns="1" Rows="{Binding RelativeSource={RelativeSource Mode=TemplatedParent},Path=Rows}"></controls:UniformGrid>
+                                    </ItemsPanelTemplate>
+                                </ItemsControl.ItemsPanel>
+                                <ItemsControl.ItemTemplate>
+                                    <DataTemplate>
+                                        <Rectangle Fill="{Binding RelativeSource={RelativeSource Mode=TemplatedParent},Path=Foreground}" Height="1" HorizontalAlignment="Stretch" VerticalAlignment="Top"></Rectangle>
+                                    </DataTemplate>
+                                </ItemsControl.ItemTemplate>
+                            </ItemsControl>
+
+                            <Rectangle Fill="{Binding RelativeSource={RelativeSource Mode=TemplatedParent},Path=Foreground}" Width="1"  HorizontalAlignment="Right" VerticalAlignment="Stretch"></Rectangle>
+                            <Rectangle Fill="{Binding RelativeSource={RelativeSource Mode=TemplatedParent},Path=Foreground}" Height="1" HorizontalAlignment="Stretch" VerticalAlignment="Bottom"></Rectangle>
+                        </Grid>
+
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+</ResourceDictionary>

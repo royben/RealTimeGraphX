@@ -1,0 +1,53 @@
+<ResourceDictionary
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:realTimeGraphX="clr-namespace:RealTimeGraphX.WPF;assembly=RealTimeGraphX.WPF"
+    xmlns:local="clr-namespace:RealTimeGraphX.WPF.Demo">
+
+
+    <Style TargetType="{x:Type local:WpfGraphControl}">
+        <Setter Property="BorderThickness" Value="1"></Setter>
+        <Setter Property="BorderBrush" Value="#FF2E2E2E"></Setter>
+        <Setter Property="Padding" Value="20 20 30 20"></Setter>
+        <Setter Property="FontSize" Value="11"></Setter>
+        <Setter Property="Foreground" Value="DodgerBlue"></Setter>
+        <Setter Property="Background">
+            <Setter.Value>
+                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0" >
+                    <GradientStop Color="Black"/>
+                    <GradientStop Color="#FF333333" Offset="1"/>
+                </LinearGradientBrush>
+            </Setter.Value>
+        </Setter>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type local:WpfGraphControl}">
+                    <Border Background="{TemplateBinding Background}"
+                            BorderBrush="{TemplateBinding BorderBrush}"
+                            BorderThickness="{TemplateBinding BorderThickness}"
+                            CornerRadius="5"
+                            Padding="{TemplateBinding Padding}">
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="1*"/>
+                                <RowDefinition Height="35"/>
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="70"/>
+                                <ColumnDefinition Width="1*"/>
+                            </Grid.ColumnDefinitions>
+
+                            <Grid Grid.Column="1">
+                                <realTimeGraphX:WpfGraphGridLines Controller="{TemplateBinding Controller}" Foreground="#FF2E2E2E" />
+                                <realTimeGraphX:WpfGraphSurface x:Name="surface" Controller="{TemplateBinding Controller}" BorderThickness="1 0 0 1" BorderBrush="{TemplateBinding Foreground}" />
+                            </Grid>
+
+                            <realTimeGraphX:WpfGraphAxisControl Orientation="Vertical" Controller="{TemplateBinding Controller}" StringFormat="0.0" />
+                            <realTimeGraphX:WpfGraphAxisControl Orientation="Horizontal" Controller="{TemplateBinding Controller}" Grid.Column="1" Grid.Row="1" StringFormat="hh\:mm\:ss"/>
+                        </Grid>
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+</ResourceDictionary>

@@ -1,0 +1,143 @@
+﻿<ResourceDictionary
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="clr-namespace:RealTimeGraphX.WPF">
+
+    <Style TargetType="{x:Type local:WpfGraphSurface}">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type local:WpfGraphSurface}">
+                    <Border Background="{TemplateBinding Background}"
+                            BorderBrush="{TemplateBinding BorderBrush}"
+                            BorderThickness="{TemplateBinding BorderThickness}">
+                        <Grid x:Name="PART_Grid" Margin="{TemplateBinding Padding}">
+                            <Image Source="{TemplateBinding Image}" Stretch="None"></Image>
+
+                            <Canvas x:Name="PART_SelectionCanvas" Background="Transparent">
+                                <Rectangle x:Name="PART_SelectionRectangle" Fill="#7BFFFFFF" Canvas.Top="0" Canvas.Left="0" Width="0" Height="0" Visibility="Hidden"></Rectangle>
+                            </Canvas>
+                        </Grid>
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style TargetType="{x:Type local:WpfGraphAxisControl}">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type local:WpfGraphAxisControl}">
+                    <Border Background="{TemplateBinding Background}"
+                            BorderBrush="{TemplateBinding BorderBrush}"
+                            BorderThickness="{TemplateBinding BorderThickness}">
+
+                        <ItemsControl x:Name="PART_ItemsControl" ItemsSource="{TemplateBinding Items}" ItemTemplate="{TemplateBinding ItemTemplate}">
+                            <ItemsControl.ItemsPanel>
+                                <ItemsPanelTemplate>
+                                    <local:WpfGraphAxisPanel Orientation="{Binding RelativeSource={RelativeSource AncestorType=local:WpfGraphAxisControl},Path=Orientation}"></local:WpfGraphAxisPanel>
+                                </ItemsPanelTemplate>
+                            </ItemsControl.ItemsPanel>
+                        </ItemsControl>
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+        <Style.Triggers>
+            <Trigger Property="Orientation" Value="Vertical">
+                <Setter Property="ItemTemplate">
+                    <Setter.Value>
+                        <DataTemplate DataType="{x:Type local:WpfGraphAxisTickData}">
+                            <DockPanel VerticalAlignment="Top">
+                                <Rectangle DockPanel.Dock="Right" VerticalAlignment="Center" Stroke="{Binding RelativeSource={RelativeSource AncestorType=local:WpfGraphAxisControl},Path=Foreground}" StrokeThickness="1">
+                                    <Rectangle.Style>
+                                        <Style TargetType="Rectangle">
+                                            <Setter Property="Width" Value="4"></Setter>
+                                            <Style.Triggers>
+                                                <DataTrigger Binding="{Binding IsEven}" Value="True">
+                                                    <Setter Property="Width" Value="6"></Setter>
+                                                </DataTrigger>
+                                            </Style.Triggers>
+                                        </Style>
+                                    </Rectangle.Style>
+                                </Rectangle>
+                                <TextBlock Text="{Binding DisplayText}"></TextBlock>
+                            </DockPanel>
+                        </DataTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Trigger>
+            <Trigger Property="Orientation" Value="Horizontal">
+                <Setter Property="ItemTemplate">
+                    <Setter.Value>
+                        <DataTemplate DataType="{x:Type local:WpfGraphAxisTickData}">
+                            <DockPanel HorizontalAlignment="Left">
+                                <Rectangle DockPanel.Dock="Top" HorizontalAlignment="Center" Stroke="{Binding RelativeSource={RelativeSource AncestorType=local:WpfGraphAxisControl},Path=Foreground}" StrokeThickness="1">
+                                    <Rectangle.Style>
+                                        <Style TargetType="Rectangle">
+                                            <Setter Property="Height" Value="4"></Setter>
+                                            <Style.Triggers>
+                                                <DataTrigger Binding="{Binding IsEven}" Value="True">
+                                                    <Setter Property="Height" Value="6"></Setter>
+                                                </DataTrigger>
+                                            </Style.Triggers>
+                                        </Style>
+                                    </Rectangle.Style>
+                                </Rectangle>
+                                <TextBlock VerticalAlignment="Bottom" Text="{Binding DisplayText}" RenderTransformOrigin="0.5,0.5">
+                                    <TextBlock.RenderTransform>
+                                        <RotateTransform Angle="-30" />
+                                    </TextBlock.RenderTransform>
+                                </TextBlock>
+                            </DockPanel>
+                        </DataTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+
+    <Style TargetType="{x:Type local:WpfGraphGridLines}">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type local:WpfGraphGridLines}">
+                    <Border Background="{TemplateBinding Background}"
+                            BorderBrush="{TemplateBinding BorderBrush}"
+                            BorderThickness="{TemplateBinding BorderThickness}">
+
+                        <Grid>
+                            <ItemsControl ItemsSource="{TemplateBinding HorizontalItems}">
+                                <ItemsControl.ItemsPanel>
+                                    <ItemsPanelTemplate>
+                                        <UniformGrid Columns="{Binding RelativeSource={RelativeSource AncestorType=local:WpfGraphGridLines},Path=Columns}"></UniformGrid>
+                                    </ItemsPanelTemplate>
+                                </ItemsControl.ItemsPanel>
+                                <ItemsControl.ItemTemplate>
+                                    <DataTemplate>
+                                        <Rectangle Stroke="{Binding RelativeSource={RelativeSource AncestorType=local:WpfGraphGridLines},Path=Foreground}" StrokeThickness="1" HorizontalAlignment="Left" VerticalAlignment="Stretch"></Rectangle>
+                                    </DataTemplate>
+                                </ItemsControl.ItemTemplate>
+                            </ItemsControl>
+
+                            <ItemsControl ItemsSource="{TemplateBinding VerticalItems}">
+                                <ItemsControl.ItemsPanel>
+                                    <ItemsPanelTemplate>
+                                        <UniformGrid Rows="{Binding RelativeSource={RelativeSource AncestorType=local:WpfGraphGridLines},Path=Rows}"></UniformGrid>
+                                    </ItemsPanelTemplate>
+                                </ItemsControl.ItemsPanel>
+                                <ItemsControl.ItemTemplate>
+                                    <DataTemplate>
+                                        <Rectangle Stroke="{Binding RelativeSource={RelativeSource AncestorType=local:WpfGraphGridLines},Path=Foreground}" StrokeThickness="1" HorizontalAlignment="Stretch" VerticalAlignment="Top"></Rectangle>
+                                    </DataTemplate>
+                                </ItemsControl.ItemTemplate>
+                            </ItemsControl>
+
+                            <Rectangle Stroke="{Binding RelativeSource={RelativeSource AncestorType=local:WpfGraphGridLines},Path=Foreground}" StrokeThickness="1" HorizontalAlignment="Right" VerticalAlignment="Stretch"></Rectangle>
+                            <Rectangle Stroke="{Binding RelativeSource={RelativeSource AncestorType=local:WpfGraphGridLines},Path=Foreground}" StrokeThickness="1" HorizontalAlignment="Stretch" VerticalAlignment="Bottom"></Rectangle>
+                        </Grid>
+
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+</ResourceDictionary>

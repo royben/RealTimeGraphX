@@ -29,7 +29,7 @@ The solution contains demo projects for WPF and UWP.
 <hr/>
 <br/>
 
-The solution contains demo projects for WPF and UWP.
+The follwing diagrams demonstrates the connections between graph components and how they are implemented on each platform.
 
 <h3>Model<h3>
 

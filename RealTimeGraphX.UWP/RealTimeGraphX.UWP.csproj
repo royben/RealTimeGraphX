@@ -109,7 +109,7 @@
     <Compile Include="UwpGraphGridLines.cs" />
     <Compile Include="UwpBindingElement.cs" />
     <Compile Include="ExtensionMethods.cs" />
-    <Compile Include="UwpDataSeries.cs" />
+    <Compile Include="UwpGraphDataSeries.cs" />
     <Compile Include="UwpDataTriggerAction.cs" />
     <Compile Include="UwpDataTriggerElement.cs" />
     <Compile Include="UwpGraphAxisControl.cs" />

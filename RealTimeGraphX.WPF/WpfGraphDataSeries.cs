@@ -12,7 +12,7 @@ namespace RealTimeGraphX.WPF
     /// </summary>
     /// <seealso cref="RealTimeGraphX.GraphObject" />
     /// <seealso cref="RealTimeGraphX.IGraphDataSeries" />
-    public class WpfDataSeries : GraphObject, IGraphDataSeries
+    public class WpfGraphDataSeries : GraphObject, IGraphDataSeries
     {
         #region Internal Properties
 
@@ -119,9 +119,9 @@ namespace RealTimeGraphX.WPF
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="WpfDataSeries"/> class.
+        /// Initializes a new instance of the <see cref="WpfGraphDataSeries"/> class.
         /// </summary>
-        public WpfDataSeries()
+        public WpfGraphDataSeries()
         {
             StrokeThickness = 1;
             IsVisible = true;

@@ -47,7 +47,7 @@ internal static class ExtensionMethods
     /// <param name="series">The series.</param>
     /// <param name="points">The points.</param>
     /// <param name="brush">The brush.</param>
-    public static void FillPolygon(this CanvasDrawingSession session, UwpGraphSurface surface, UwpDataSeries series, List<Vector2> points, Brush brush)
+    public static void FillPolygon(this CanvasDrawingSession session, UwpGraphSurface surface, UwpGraphDataSeries series, List<Vector2> points, Brush brush)
     {
         var size = surface.GetSize();
         var geometry = CanvasGeometry.CreatePolygon(session, points.ToArray());

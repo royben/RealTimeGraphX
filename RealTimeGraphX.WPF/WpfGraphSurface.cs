@@ -20,8 +20,8 @@ namespace RealTimeGraphX.WPF
     /// Represents a WPF <see cref="IGraphSurface{TDataSeries}">graph surface</see>.
     /// </summary>
     /// <seealso cref="System.Windows.Controls.Control" />
-    /// <seealso cref="RealTimeGraphX.IGraphSurface{RealTimeGraphX.WPF.WpfDataSeries}" />
-    public class WpfGraphSurface : Control, IGraphSurface<WpfDataSeries>
+    /// <seealso cref="RealTimeGraphX.IGraphSurface{RealTimeGraphX.WPF.WpfGraphDataSeries}" />
+    public class WpfGraphSurface : Control, IGraphSurface<WpfGraphDataSeries>
     {
         private WriteableBitmap _writeable_bitmap;
         private System.Drawing.Bitmap _gdi_bitmap;
@@ -56,13 +56,13 @@ namespace RealTimeGraphX.WPF
         /// <summary>
         /// Gets or sets the graph controller.
         /// </summary>
-        public IGraphController<WpfDataSeries> Controller
+        public IGraphController<WpfGraphDataSeries> Controller
         {
-            get { return (IGraphController<WpfDataSeries>)GetValue(ControllerProperty); }
+            get { return (IGraphController<WpfGraphDataSeries>)GetValue(ControllerProperty); }
             set { SetValue(ControllerProperty, value); }
         }
         public static readonly DependencyProperty ControllerProperty =
-            DependencyProperty.Register("Controller", typeof(IGraphController<WpfDataSeries>), typeof(WpfGraphSurface), new PropertyMetadata(null, (d, e) => (d as WpfGraphSurface).OnControllerChanged(e.OldValue as IGraphController<WpfDataSeries>, e.NewValue as IGraphController<WpfDataSeries>)));
+            DependencyProperty.Register("Controller", typeof(IGraphController<WpfGraphDataSeries>), typeof(WpfGraphSurface), new PropertyMetadata(null, (d, e) => (d as WpfGraphSurface).OnControllerChanged(e.OldValue as IGraphController<WpfGraphDataSeries>, e.NewValue as IGraphController<WpfGraphDataSeries>)));
 
         #endregion
 
@@ -242,7 +242,7 @@ namespace RealTimeGraphX.WPF
         /// </summary>
         /// <param name="oldController">The old controller.</param>
         /// <param name="newController">The new controller.</param>
-        protected virtual void OnControllerChanged(IGraphController<WpfDataSeries> oldController, IGraphController<WpfDataSeries> newController)
+        protected virtual void OnControllerChanged(IGraphController<WpfGraphDataSeries> oldController, IGraphController<WpfGraphDataSeries> newController)
         {
             if (oldController != null)
             {
@@ -299,7 +299,7 @@ namespace RealTimeGraphX.WPF
         /// </summary>
         /// <param name="dataSeries">The data series.</param>
         /// <param name="points">The points.</param>
-        public void DrawSeries(WpfDataSeries dataSeries, IEnumerable<System.Drawing.PointF> points)
+        public void DrawSeries(WpfGraphDataSeries dataSeries, IEnumerable<System.Drawing.PointF> points)
         {
             _g.DrawCurve(dataSeries.GdiPen, points.ToArray());
         }
@@ -309,7 +309,7 @@ namespace RealTimeGraphX.WPF
         /// </summary>
         /// <param name="dataSeries">The data series.</param>
         /// <param name="points">The points.</param>
-        public void FillSeries(WpfDataSeries dataSeries, IEnumerable<System.Drawing.PointF> points)
+        public void FillSeries(WpfGraphDataSeries dataSeries, IEnumerable<System.Drawing.PointF> points)
         {
             var brush = dataSeries.GdiFill;
 

@@ -22,8 +22,8 @@ namespace RealTimeGraphX.UWP
     /// Represents a UWP <see cref="IGraphSurface{TDataSeries}">graph surface</see>.
     /// </summary>
     /// <seealso cref="Windows.UI.Xaml.Controls.Control" />
-    /// <seealso cref="RealTimeGraphX.IGraphSurface{RealTimeGraphX.UWP.UwpDataSeries}" />
-    public class UwpGraphSurface : Control, IGraphSurface<UwpDataSeries>
+    /// <seealso cref="RealTimeGraphX.IGraphSurface{RealTimeGraphX.UWP.UwpGraphDataSeries}" />
+    public class UwpGraphSurface : Control, IGraphSurface<UwpGraphDataSeries>
     {
         private CanvasRenderTarget _bitmap;
         private System.Drawing.SizeF _size;
@@ -45,13 +45,13 @@ namespace RealTimeGraphX.UWP
         /// <summary>
         /// Gets or sets the graph controller.
         /// </summary>
-        public IGraphController<UwpDataSeries> Controller
+        public IGraphController<UwpGraphDataSeries> Controller
         {
-            get { return (IGraphController<UwpDataSeries>)GetValue(ControllerProperty); }
+            get { return (IGraphController<UwpGraphDataSeries>)GetValue(ControllerProperty); }
             set { SetValue(ControllerProperty, value); }
         }
         public static readonly DependencyProperty ControllerProperty =
-            DependencyProperty.Register("Controller", typeof(IGraphController<UwpDataSeries>), typeof(UwpGraphSurface), new PropertyMetadata(null, (d, e) => (d as UwpGraphSurface).OnControllerChanged(e.OldValue as IGraphController<UwpDataSeries>, e.NewValue as IGraphController<UwpDataSeries>)));
+            DependencyProperty.Register("Controller", typeof(IGraphController<UwpGraphDataSeries>), typeof(UwpGraphSurface), new PropertyMetadata(null, (d, e) => (d as UwpGraphSurface).OnControllerChanged(e.OldValue as IGraphController<UwpGraphDataSeries>, e.NewValue as IGraphController<UwpGraphDataSeries>)));
 
         #endregion
 
@@ -255,7 +255,7 @@ namespace RealTimeGraphX.UWP
         /// </summary>
         /// <param name="oldController">The old controller.</param>
         /// <param name="newController">The new controller.</param>
-        protected virtual void OnControllerChanged(IGraphController<UwpDataSeries> oldController, IGraphController<UwpDataSeries> newController)
+        protected virtual void OnControllerChanged(IGraphController<UwpGraphDataSeries> oldController, IGraphController<UwpGraphDataSeries> newController)
         {
             if (oldController != null)
             {
@@ -318,7 +318,7 @@ namespace RealTimeGraphX.UWP
         /// </summary>
         /// <param name="dataSeries">The data series.</param>
         /// <param name="points">The points.</param>
-        public void DrawSeries(UwpDataSeries dataSeries, IEnumerable<System.Drawing.PointF> points)
+        public void DrawSeries(UwpGraphDataSeries dataSeries, IEnumerable<System.Drawing.PointF> points)
         {
             List<Vector2> vPoints = points.Select(x => new Vector2(x.X, x.Y)).ToList();
             _session.DrawPolyline(vPoints, dataSeries.Stroke, dataSeries.StrokeThickness);
@@ -329,7 +329,7 @@ namespace RealTimeGraphX.UWP
         /// </summary>
         /// <param name="dataSeries">The data series.</param>
         /// <param name="points">The points.</param>
-        public void FillSeries(UwpDataSeries dataSeries, IEnumerable<System.Drawing.PointF> points)
+        public void FillSeries(UwpGraphDataSeries dataSeries, IEnumerable<System.Drawing.PointF> points)
         {
             List<Vector2> vPoints = points.Select(x => new Vector2(x.X, x.Y)).ToList();
             _session.FillPolygon(this, dataSeries, vPoints, dataSeries.Fill);

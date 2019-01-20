@@ -15,7 +15,7 @@ namespace RealTimeGraphX.UWP
     /// </summary>
     /// <seealso cref="RealTimeGraphX.GraphObject" />
     /// <seealso cref="RealTimeGraphX.IGraphDataSeries" />
-    public class UwpDataSeries : GraphObject, IGraphDataSeries
+    public class UwpGraphDataSeries : GraphObject, IGraphDataSeries
     {
         private class Stop
         {
@@ -115,7 +115,7 @@ namespace RealTimeGraphX.UWP
         /// <summary>
         /// Initializes a new instance of the <see cref="WpfDataSeries"/> class.
         /// </summary>
-        public UwpDataSeries()
+        public UwpGraphDataSeries()
         {
             StrokeThickness = 1;
             IsVisible = true;

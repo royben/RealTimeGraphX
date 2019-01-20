@@ -13,8 +13,8 @@ namespace RealTimeGraphX.UWP
     /// </summary>
     /// <typeparam name="TXDataPoint">The type of the x data point.</typeparam>
     /// <typeparam name="TYDataPoint">The type of the y data point.</typeparam>
-    /// <seealso cref="RealTimeGraphX.GraphController{RealTimeGraphX.UWP.UwpDataSeries, TXDataPoint, TYDataPoint}" />
-    public class UwpGraphController<TXDataPoint, TYDataPoint> : GraphController<UwpDataSeries, TXDataPoint, TYDataPoint>
+    /// <seealso cref="RealTimeGraphX.GraphController{RealTimeGraphX.UWP.UwpGraphDataSeries, TXDataPoint, TYDataPoint}" />
+    public class UwpGraphController<TXDataPoint, TYDataPoint> : GraphController<UwpGraphDataSeries, TXDataPoint, TYDataPoint>
         where TXDataPoint : GraphDataPoint
         where TYDataPoint : GraphDataPoint
     {

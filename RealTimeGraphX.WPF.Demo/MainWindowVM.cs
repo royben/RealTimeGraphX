@@ -25,7 +25,7 @@ namespace RealTimeGraphX.WPF.Demo
             Controller.Range.MaximumX = TimeSpan.FromSeconds(10);
             Controller.Range.AutoY = true;
 
-            Controller.DataSeriesCollection.Add(new WpfDataSeries()
+            Controller.DataSeriesCollection.Add(new WpfGraphDataSeries()
             {
                 Name = "Series",
                 Stroke = Colors.DodgerBlue,
@@ -37,31 +37,31 @@ namespace RealTimeGraphX.WPF.Demo
             MultiController.Range.MaximumX = TimeSpan.FromSeconds(10);
             MultiController.Range.AutoY = true;
 
-            MultiController.DataSeriesCollection.Add(new WpfDataSeries()
+            MultiController.DataSeriesCollection.Add(new WpfGraphDataSeries()
             {
                 Name = "Series 1",
                 Stroke = Colors.Red,
             });
 
-            MultiController.DataSeriesCollection.Add(new WpfDataSeries()
+            MultiController.DataSeriesCollection.Add(new WpfGraphDataSeries()
             {
                 Name = "Series 2",
                 Stroke = Colors.Green,
             });
 
-            MultiController.DataSeriesCollection.Add(new WpfDataSeries()
+            MultiController.DataSeriesCollection.Add(new WpfGraphDataSeries()
             {
                 Name = "Series 3",
                 Stroke = Colors.Blue,
             });
 
-            MultiController.DataSeriesCollection.Add(new WpfDataSeries()
+            MultiController.DataSeriesCollection.Add(new WpfGraphDataSeries()
             {
                 Name = "Series 4",
                 Stroke = Colors.Yellow,
             });
 
-            MultiController.DataSeriesCollection.Add(new WpfDataSeries()
+            MultiController.DataSeriesCollection.Add(new WpfGraphDataSeries()
             {
                 Name = "Series 5",
                 Stroke = Colors.Gray,

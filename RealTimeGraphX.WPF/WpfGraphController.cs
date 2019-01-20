@@ -12,8 +12,8 @@ namespace RealTimeGraphX.WPF
     /// </summary>
     /// <typeparam name="TXDataPoint">The type of the x data point.</typeparam>
     /// <typeparam name="TYDataPoint">The type of the y data point.</typeparam>
-    /// <seealso cref="RealTimeGraphX.GraphController{RealTimeGraphX.WPF.WpfDataSeries, TXDataPoint, TYDataPoint}" />
-    public class WpfGraphController<TXDataPoint, TYDataPoint> : GraphController<WpfDataSeries, TXDataPoint, TYDataPoint>
+    /// <seealso cref="RealTimeGraphX.GraphController{RealTimeGraphX.WPF.WpfGraphDataSeries, TXDataPoint, TYDataPoint}" />
+    public class WpfGraphController<TXDataPoint, TYDataPoint> : GraphController<WpfGraphDataSeries, TXDataPoint, TYDataPoint>
         where TXDataPoint : GraphDataPoint
         where TYDataPoint : GraphDataPoint
     {

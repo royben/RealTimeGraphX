@@ -27,7 +27,7 @@ namespace RealTimeGraphX.UWP.Demo
             Controller.Range.MaximumX = TimeSpan.FromSeconds(10);
             Controller.Range.AutoY = true;
 
-            Controller.DataSeriesCollection.Add(new UwpDataSeries()
+            Controller.DataSeriesCollection.Add(new UwpGraphDataSeries()
             {
                 Name = "Series",
                 Stroke = Colors.DodgerBlue,
@@ -39,31 +39,31 @@ namespace RealTimeGraphX.UWP.Demo
             MultiController.Range.MaximumX = TimeSpan.FromSeconds(10);
             MultiController.Range.AutoY = true;
 
-            MultiController.DataSeriesCollection.Add(new UwpDataSeries()
+            MultiController.DataSeriesCollection.Add(new UwpGraphDataSeries()
             {
                 Name = "Series 1",
                 Stroke = Colors.Red,
             });
 
-            MultiController.DataSeriesCollection.Add(new UwpDataSeries()
+            MultiController.DataSeriesCollection.Add(new UwpGraphDataSeries()
             {
                 Name = "Series 2",
                 Stroke = Colors.Green,
             });
 
-            MultiController.DataSeriesCollection.Add(new UwpDataSeries()
+            MultiController.DataSeriesCollection.Add(new UwpGraphDataSeries()
             {
                 Name = "Series 3",
                 Stroke = Colors.Blue,
             });
 
-            MultiController.DataSeriesCollection.Add(new UwpDataSeries()
+            MultiController.DataSeriesCollection.Add(new UwpGraphDataSeries()
             {
                 Name = "Series 4",
                 Stroke = Colors.Yellow,
             });
 
-            MultiController.DataSeriesCollection.Add(new UwpDataSeries()
+            MultiController.DataSeriesCollection.Add(new UwpGraphDataSeries()
             {
                 Name = "Series 5",
                 Stroke = Colors.Gray,

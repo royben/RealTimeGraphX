@@ -37,6 +37,9 @@ The follwing diagrams demonstrates the connections between graph components and 
 
 The graph controller binds to a renderer and a surface. Data points are pushed to the controller, the controller uses the renderer in orderer to prepare and arrange the points for visual display. Finally, the controller directs the renderer to draw the points on the specific surface.
 
+
 **WPF Stack Implementation**
 
 ![alt tag](https://github.com/royben/RealTimeGraphX/blob/master/Preview/stack.png)
+
+Each platform (WPF/UWP etc.) should implement it's own *IGraphDataSeries* and *IGraphSurface*.

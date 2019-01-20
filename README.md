@@ -31,7 +31,7 @@ Gradient Fill
  
 The follwing diagrams demonstrates the connections between graph components and how they are implemented on each platform.
 
-<h3>Model<h3>
+Model
 
 ![alt tag](https://github.com/royben/RealTimeGraphX/blob/master/Preview/schema.png)
 

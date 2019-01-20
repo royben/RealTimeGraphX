@@ -13,15 +13,15 @@ RealTimeGraphX has a number of built-in data point types (axis) like Double, Flo
 
 The solution contains demo projects for WPF and UWP.
 
-Single Series
+*Single Series*
 
 ![alt tag](https://github.com/royben/RealTimeGraphX/blob/master/Preview/single.png)
 
-Multi Series
+*Multi Series*
  
 ![alt tag](https://github.com/royben/RealTimeGraphX/blob/master/Preview/multi.PNG)
   
-Gradient Fill
+*Gradient Fill*
  
 ![alt tag](https://github.com/royben/RealTimeGraphX/blob/master/Preview/gradient.png)
 
@@ -31,7 +31,7 @@ Gradient Fill
  
 The follwing diagrams demonstrates the connections between graph components and how they are implemented on each platform.
 
-Model
+*Model*
 
 ![alt tag](https://github.com/royben/RealTimeGraphX/blob/master/Preview/schema.png)
 

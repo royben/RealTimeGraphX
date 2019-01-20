@@ -31,10 +31,3 @@ The solution contains demo projects for WPF and UWP.
 
 The follwing diagrams demonstrates the connections between graph components and how they are implemented on each platform.
 
-<h3>Model<h3>
-
-![alt tag](https://github.com/royben/RealTimeGraphX/blob/master/Preview/schema.png)
-
-<h3>WPF Stack Implementation<h3>
-
-![alt tag](https://github.com/royben/RealTimeGraphX/blob/master/Preview/stack.png)

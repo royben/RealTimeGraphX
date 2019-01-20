@@ -7,3 +7,6 @@ Typical use case is, scientific measurements applications which requires real-ti
 
 RealTimeGraphX has a number of built-in data point types (axis) like Double, Float, Int32 and TimeSpan, but you can easily implement any kind of custom data type by inheriting and implementing the mathematical logic for that type.
 
+<h3>Sample Application<h3>
+
+![alt tag](https://raw.githubusercontent.com/royben/realtimegraphx/master/preview/single.png)

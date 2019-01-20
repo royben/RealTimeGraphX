@@ -9,6 +9,7 @@ RealTimeGraphX has a number of built-in data point types (axis) like Double, Flo
 
 ### Features:
 - **High performance**
+- **Thread safe**
 - **MVVM support**
 - **Any type of data point**
 - **Zooming and panning**
@@ -49,3 +50,9 @@ The graph controller binds to a renderer and a surface. Data points are pushed t
 ![alt tag](https://github.com/royben/RealTimeGraphX/blob/master/Preview/stack.png)
 
 Each platform (WPF/UWP etc.) should implement it's own *IGraphDataSeries* and *IGraphSurface*.
+
+<br/>
+<hr/>
+<br/>
+
+<h3>Usage Example<h3>

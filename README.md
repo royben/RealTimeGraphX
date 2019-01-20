@@ -9,4 +9,4 @@ RealTimeGraphX has a number of built-in data point types (axis) like Double, Flo
 
 <h3>Sample Application<h3>
 
-![alt tag](https://raw.githubusercontent.com/royben/realtimegraphx/master/preview/single.png)
+![alt tag](https://github.com/royben/RealTimeGraphX/blob/master/Preview/single.png)

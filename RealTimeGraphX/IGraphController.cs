@@ -93,6 +93,15 @@ namespace RealTimeGraphX
         GraphCommand ClearCommand { get; }
 
         #endregion
+
+        #region Methods
+
+        /// <summary>
+        /// Requests the controller to invoke a virtual range change event.
+        /// </summary>
+        void RequestVirtualRangeChange();
+
+        #endregion
     }
 
     /// <summary>

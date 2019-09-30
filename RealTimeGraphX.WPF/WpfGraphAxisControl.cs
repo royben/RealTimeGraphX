@@ -106,6 +106,26 @@ namespace RealTimeGraphX.WPF
         protected virtual void OnTicksChanged()
         {
             Items = new ObservableCollection<WpfGraphAxisTickData>(Enumerable.Range(0, Ticks).Select(x => new WpfGraphAxisTickData()));
+
+            if (Controller != null)
+            {
+                Controller.RequestVirtualRangeChange();
+            }
+        }
+
+        /// <summary>
+        /// Called when the controller has changed.
+        /// </summary>
+        /// <param name="oldController">The old controller.</param>
+        /// <param name="newController">The new controller.</param>
+        protected override void OnControllerChanged(IGraphController oldController, IGraphController newController)
+        {
+            base.OnControllerChanged(oldController, newController);
+            
+            if (newController != null)
+            {
+                newController.RequestVirtualRangeChange();
+            }
         }
 
         /// <summary>

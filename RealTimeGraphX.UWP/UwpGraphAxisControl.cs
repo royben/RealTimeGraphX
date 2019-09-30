@@ -100,6 +100,26 @@ namespace RealTimeGraphX.UWP
         protected virtual void OnTicksChanged()
         {
             Items = new ObservableCollection<UwpGraphAxisTickData>(Enumerable.Range(0, Ticks).Select(x => new UwpGraphAxisTickData()));
+
+            if (Controller != null)
+            {
+                Controller.RequestVirtualRangeChange();
+            }
+        }
+
+        /// <summary>
+        /// Called when the controller has changed.
+        /// </summary>
+        /// <param name="oldController">The old controller.</param>
+        /// <param name="newController">The new controller.</param>
+        protected override void OnControllerChanged(IGraphController oldController, IGraphController newController)
+        {
+            base.OnControllerChanged(oldController, newController);
+
+            if (newController != null)
+            {
+                newController.RequestVirtualRangeChange();
+            }
         }
 
         /// <summary>

@@ -120,7 +120,7 @@ namespace RealTimeGraphX.DataPoints
 
             var result = ((Value - dMin) * 100) / (dMax - dMin);
 
-            return double.IsNaN(result) ? dMin.Value : result;
+            return double.IsNaN(result) || double.IsInfinity(result) ? dMin.Value : result;
         }
 
         /// <summary>

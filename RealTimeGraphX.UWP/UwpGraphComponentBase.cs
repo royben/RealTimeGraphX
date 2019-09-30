@@ -32,7 +32,7 @@ namespace RealTimeGraphX.UWP
         /// </summary>
         /// <param name="oldController">The old controller.</param>
         /// <param name="newController">The new controller.</param>
-        private void OnControllerChanged(IGraphController oldController, IGraphController newController)
+        protected virtual void OnControllerChanged(IGraphController oldController, IGraphController newController)
         {
             if (oldController != null)
             {

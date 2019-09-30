@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using System.Drawing;
 using RealTimeGraphX.EventArguments;
 using RealTimeGraphX.Renderers;
+using System.Diagnostics;
 
 namespace RealTimeGraphX
 {
@@ -98,10 +99,19 @@ namespace RealTimeGraphX
             }
         }
 
+        private IGraphSurface<TDataSeries> _surface;
         /// <summary>
         /// Gets or sets the rendering surface.
         /// </summary>
-        public IGraphSurface<TDataSeries> Surface { get; set; }
+        public IGraphSurface<TDataSeries> Surface
+        {
+            get { return _surface; }
+            set
+            {
+                _surface = value;
+                RequestVirtualRangeChange();
+            }
+        }
 
         private GraphRange<TXDataPoint, TYDataPoint> _range;
         /// <summary>
@@ -207,124 +217,131 @@ namespace RealTimeGraphX
             {
                 if (!IsPaused)
                 {
-                    var pending_list = _pending_series_collection.BlockDequeue();
-
-                    foreach (var pending_series in pending_list)
+                    try
                     {
-                        if (pending_series.IsClearSeries)
+                        var pending_list = _pending_series_collection.BlockDequeue();
+
+                        foreach (var pending_series in pending_list)
                         {
-                            _pending_series_collection = new GraphDataQueue<List<PendingSeries>>();
-                            _to_render.Clear();
-                            break;
-                        }
-
-                        if (_to_render.ContainsKey(pending_series.Series))
-                        {
-                            var s = _to_render[pending_series.Series];
-                            s.XX.AddRange(pending_series.XX);
-                            s.YY.AddRange(pending_series.YY);
-                        }
-                        else
-                        {
-                            _to_render[pending_series.Series] = pending_series;
-                        }
-                    }
-
-                    if (DateTime.Now > _last_render_time.AddMilliseconds(RefreshRate.TotalMilliseconds) && _to_render.Count > 0)
-                    {
-                        GraphDataPoint min_x = _range.MaximumX - _range.MaximumX;
-                        GraphDataPoint max_x = _range.MaximumX;
-                        GraphDataPoint min_y = _range.MinimumY;
-                        GraphDataPoint max_y = _range.MaximumY;
-
-                        min_x = _to_render.First().Value.XX.First();
-                        max_x = _to_render.First().Value.XX.Last();
-
-                        if (_range.AutoY)
-                        {
-                            min_y = _to_render.Select(x => x.Value).SelectMany(x => x.YY).Min();
-                            max_y = _to_render.Select(x => x.Value).SelectMany(x => x.YY).Max();
-                        }
-
-                        if (min_y == max_y)
-                        {
-                            min_y = _range.MinimumY;
-                            max_y = _range.MaximumY;
-                        }
-
-                        EffectiveMinimumX = min_x;
-                        EffectiveMaximumX = max_x;
-                        EffectiveMinimumY = min_y;
-                        EffectiveMaximumY = max_y;
-
-                        VirtualMinimumX = EffectiveMinimumX;
-                        VirtualMaximumX = EffectiveMaximumX;
-                        VirtualMinimumY = EffectiveMinimumY;
-                        VirtualMaximumY = EffectiveMaximumY;
-
-                        _last_render_time = DateTime.Now;
-
-                        if (Surface != null)
-                        {
-                            var surface_size = Surface.GetSize();
-                            var zoom_rect = Surface.GetZoomRect();
-
-                            Surface.BeginDraw();
-
-                            if (zoom_rect.Width > 0 && zoom_rect.Height > 0)
+                            if (pending_series.IsClearSeries)
                             {
-                                var zoom_rect_top_percentage = zoom_rect.Top / surface_size.Height;
-                                var zoom_rect_bottom_percentage = zoom_rect.Bottom / surface_size.Height;
-                                var zoom_rect_left_percentage = zoom_rect.Left / surface_size.Width;
-                                var zoom_rect_right_percentage = zoom_rect.Right / surface_size.Width;
-
-                                VirtualMinimumY = EffectiveMaximumY - GraphDataPointHelper.ComputeAbsolutePosition(EffectiveMinimumY, EffectiveMaximumY, zoom_rect_bottom_percentage);
-                                VirtualMaximumY = EffectiveMaximumY - GraphDataPointHelper.ComputeAbsolutePosition(EffectiveMinimumY, EffectiveMaximumY, zoom_rect_top_percentage);
-
-                                VirtualMinimumX = GraphDataPointHelper.ComputeAbsolutePosition(EffectiveMinimumX, EffectiveMaximumX, zoom_rect_left_percentage);
-                                VirtualMaximumX = GraphDataPointHelper.ComputeAbsolutePosition(EffectiveMinimumX, EffectiveMaximumX, zoom_rect_right_percentage);
-
-                                GraphTransform transform = new GraphTransform();
-                                var scale_x = (float)(surface_size.Width / zoom_rect.Width);
-                                var scale_y = (float)(surface_size.Height / zoom_rect.Height);
-                                var translate_x = (float)-zoom_rect.Left * scale_x;
-                                var translate_y = (float)-zoom_rect.Top * scale_y;
-
-                                transform = new GraphTransform();
-                                transform.TranslateX = translate_x;
-                                transform.TranslateY = translate_y;
-                                transform.ScaleX = scale_x;
-                                transform.ScaleY = scale_y;
-
-                                Surface.SetTransform(transform);
+                                _pending_series_collection = new GraphDataQueue<List<PendingSeries>>();
+                                _to_render.Clear();
+                                break;
                             }
 
-                            List<Tuple<TDataSeries, IEnumerable<PointF>>> to_draw = new List<Tuple<TDataSeries, IEnumerable<PointF>>>();
-
-                            var to_render = _to_render.Select(x => x.Value).ToList();
-
-                            foreach (var item in to_render)
+                            if (_to_render.ContainsKey(pending_series.Series))
                             {
-                                var points = Renderer.Render(Surface, item.Series, _range, item.XX, item.YY, min_x, max_x, min_y, max_y);
-                                to_draw.Add(new Tuple<TDataSeries, IEnumerable<PointF>>(item.Series, points));
+                                var s = _to_render[pending_series.Series];
+                                s.XX.AddRange(pending_series.XX);
+                                s.YY.AddRange(pending_series.YY);
+                            }
+                            else
+                            {
+                                _to_render[pending_series.Series] = pending_series;
+                            }
+                        }
+
+                        if (DateTime.Now > _last_render_time.AddMilliseconds(RefreshRate.TotalMilliseconds) && _to_render.Count > 0)
+                        {
+                            GraphDataPoint min_x = _range.MaximumX - _range.MaximumX;
+                            GraphDataPoint max_x = _range.MaximumX;
+                            GraphDataPoint min_y = _range.MinimumY;
+                            GraphDataPoint max_y = _range.MaximumY;
+
+                            min_x = _to_render.First().Value.XX.First();
+                            max_x = _to_render.First().Value.XX.Last();
+
+                            if (_range.AutoY)
+                            {
+                                min_y = _to_render.Select(x => x.Value).SelectMany(x => x.YY).Min();
+                                max_y = _to_render.Select(x => x.Value).SelectMany(x => x.YY).Max();
                             }
 
-                            for (int i = 0; i < to_draw.Count; i++)
+                            if (min_y == max_y)
                             {
-                                if (to_draw[i].Item2.Count() > 2)
+                                min_y = _range.MinimumY;
+                                max_y = _range.MaximumY;
+                            }
+
+                            EffectiveMinimumX = min_x;
+                            EffectiveMaximumX = max_x;
+                            EffectiveMinimumY = min_y;
+                            EffectiveMaximumY = max_y;
+
+                            VirtualMinimumX = EffectiveMinimumX;
+                            VirtualMaximumX = EffectiveMaximumX;
+                            VirtualMinimumY = EffectiveMinimumY;
+                            VirtualMaximumY = EffectiveMaximumY;
+
+                            _last_render_time = DateTime.Now;
+
+                            if (Surface != null)
+                            {
+                                var surface_size = Surface.GetSize();
+                                var zoom_rect = Surface.GetZoomRect();
+
+                                Surface.BeginDraw();
+
+                                if (zoom_rect.Width > 0 && zoom_rect.Height > 0)
                                 {
-                                    if (to_draw[i].Item1.IsVisible)
+                                    var zoom_rect_top_percentage = zoom_rect.Top / surface_size.Height;
+                                    var zoom_rect_bottom_percentage = zoom_rect.Bottom / surface_size.Height;
+                                    var zoom_rect_left_percentage = zoom_rect.Left / surface_size.Width;
+                                    var zoom_rect_right_percentage = zoom_rect.Right / surface_size.Width;
+
+                                    VirtualMinimumY = EffectiveMaximumY - GraphDataPointHelper.ComputeAbsolutePosition(EffectiveMinimumY, EffectiveMaximumY, zoom_rect_bottom_percentage);
+                                    VirtualMaximumY = EffectiveMaximumY - GraphDataPointHelper.ComputeAbsolutePosition(EffectiveMinimumY, EffectiveMaximumY, zoom_rect_top_percentage);
+
+                                    VirtualMinimumX = GraphDataPointHelper.ComputeAbsolutePosition(EffectiveMinimumX, EffectiveMaximumX, zoom_rect_left_percentage);
+                                    VirtualMaximumX = GraphDataPointHelper.ComputeAbsolutePosition(EffectiveMinimumX, EffectiveMaximumX, zoom_rect_right_percentage);
+
+                                    GraphTransform transform = new GraphTransform();
+                                    var scale_x = (float)(surface_size.Width / zoom_rect.Width);
+                                    var scale_y = (float)(surface_size.Height / zoom_rect.Height);
+                                    var translate_x = (float)-zoom_rect.Left * scale_x;
+                                    var translate_y = (float)-zoom_rect.Top * scale_y;
+
+                                    transform = new GraphTransform();
+                                    transform.TranslateX = translate_x;
+                                    transform.TranslateY = translate_y;
+                                    transform.ScaleX = scale_x;
+                                    transform.ScaleY = scale_y;
+
+                                    Surface.SetTransform(transform);
+                                }
+
+                                List<Tuple<TDataSeries, IEnumerable<PointF>>> to_draw = new List<Tuple<TDataSeries, IEnumerable<PointF>>>();
+
+                                var to_render = _to_render.Select(x => x.Value).ToList();
+
+                                foreach (var item in to_render)
+                                {
+                                    var points = Renderer.Render(Surface, item.Series, _range, item.XX, item.YY, min_x, max_x, min_y, max_y);
+                                    to_draw.Add(new Tuple<TDataSeries, IEnumerable<PointF>>(item.Series, points));
+                                }
+
+                                for (int i = 0; i < to_draw.Count; i++)
+                                {
+                                    if (to_draw[i].Item2.Count() > 2)
                                     {
-                                        Renderer.Draw(Surface, to_draw[i].Item1, to_draw[i].Item2, i, to_draw.Count);
+                                        if (to_draw[i].Item1.IsVisible)
+                                        {
+                                            Renderer.Draw(Surface, to_draw[i].Item1, to_draw[i].Item2, i, to_draw.Count);
+                                        }
                                     }
                                 }
+
+                                Surface.EndDraw();
                             }
 
-                            Surface.EndDraw();
+                            OnEffectiveRangeChanged(EffectiveMinimumX, EffectiveMaximumX, EffectiveMinimumY, EffectiveMaximumY);
+                            OnVirtualRangeChanged(VirtualMinimumX, VirtualMaximumX, VirtualMinimumY, VirtualMaximumY);
                         }
-
-                        OnEffectiveRangeChanged(EffectiveMinimumX, EffectiveMaximumX, EffectiveMinimumY, EffectiveMaximumY);
-                        OnVirtualRangeChanged(VirtualMinimumX, VirtualMaximumX, VirtualMinimumY, VirtualMaximumY);
+                    }
+                    catch (Exception ex)
+                    {
+                        Debug.WriteLine($"Error in RealTimeGraphX:\n{ex.ToString()}");
                     }
                 }
                 else
@@ -519,6 +536,14 @@ namespace RealTimeGraphX
                     IsClearSeries = true
                 },
             });
+        }
+
+        /// <summary>
+        /// Requests the controller to invoke a virtual range change event.
+        /// </summary>
+        public void RequestVirtualRangeChange()
+        {
+            OnVirtualRangeChanged(Range.MaximumX, Range.MaximumX, Range.MinimumY, Range.MaximumY);
         }
 
         #endregion

@@ -40,6 +40,20 @@ namespace RealTimeGraphX.UWP
         private Point _current_mouse_position;
         private Point _last_mouse_position;
 
+        #region Events
+
+        /// <summary>
+        /// Occurs when the surface size has changed.
+        /// </summary>
+        public event EventHandler SurfaceSizeChanged;
+
+        /// <summary>
+        /// Occurs when the surface zoom rectangle has changed.
+        /// </summary>
+        public event EventHandler ZoomRectChanged;
+
+        #endregion
+
         #region Properties
 
         /// <summary>
@@ -161,6 +175,8 @@ namespace RealTimeGraphX.UWP
                 }
 
                 _zoom_rect = new System.Drawing.RectangleF((float)x, (float)y, _zoom_rect.Width, _zoom_rect.Height);
+
+                ZoomRectChanged?.Invoke(this, new EventArgs());
             }
 
             _last_mouse_position = _current_mouse_position;
@@ -186,6 +202,7 @@ namespace RealTimeGraphX.UWP
                 _zoom_rect = new System.Drawing.RectangleF((float)Canvas.GetLeft(_selection_rectangle), (float)Canvas.GetTop(_selection_rectangle), (float)_selection_rectangle.Width, (float)_selection_rectangle.Height);
                 _selection_rectangle.Visibility = Visibility.Collapsed;
                 _is_scaled = true;
+                ZoomRectChanged?.Invoke(this, new EventArgs());
             }
         }
 
@@ -225,6 +242,7 @@ namespace RealTimeGraphX.UWP
         {
             _zoom_rect = new System.Drawing.RectangleF();
             _is_scaled = false;
+            ZoomRectChanged?.Invoke(this, new EventArgs());
         }
 
         /// <summary>
@@ -281,6 +299,7 @@ namespace RealTimeGraphX.UWP
         {
             _size = new System.Drawing.SizeF((float)e.NewSize.Width, (float)e.NewSize.Height);
             _size_changed = true;
+             SurfaceSizeChanged?.Invoke(this, new EventArgs());
         }
 
         #endregion
@@ -297,6 +316,11 @@ namespace RealTimeGraphX.UWP
                 CanvasDevice device = CanvasDevice.GetSharedDevice();
                 _bitmap = new CanvasRenderTarget(device, _size.Width, _size.Height, 96);
                 _size_changed = false;
+            }
+
+            if (_session != null)
+            {
+                _session.Dispose();
             }
 
             _session = _bitmap.CreateDrawingSession();

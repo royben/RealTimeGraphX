@@ -39,6 +39,11 @@ namespace RealTimeGraphX
         bool IsPaused { get; set; }
 
         /// <summary>
+        /// Gets or sets a value indicating whether to disable the rendering of data.
+        /// </summary>
+        bool DisableRendering { get; set; }
+
+        /// <summary>
         /// Gets the current effective x-axis minimum.
         /// </summary>
         GraphDataPoint EffectiveMinimumX { get; }

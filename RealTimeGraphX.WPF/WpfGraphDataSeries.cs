@@ -135,5 +135,15 @@ namespace RealTimeGraphX.WPF
         {
             get { return Fill != null; }
         }
+
+        private object _currentValue;
+        /// <summary>
+        /// Gets the current value.
+        /// </summary>
+        public object CurrentValue
+        {
+            get { return _currentValue; }
+            set { _currentValue = value; RaisePropertyChangedAuto(); }
+        }
     }
 }

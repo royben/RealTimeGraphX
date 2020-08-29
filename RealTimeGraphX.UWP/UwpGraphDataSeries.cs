@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Windows.UI;
+using Windows.UI.Xaml;
 using Windows.UI.Xaml.Media;
 
 namespace RealTimeGraphX.UWP
@@ -110,6 +111,19 @@ namespace RealTimeGraphX.UWP
         public bool UseFill
         {
             get { return Fill != null; }
+        }
+
+        private Object _currentValue;
+        /// <summary>
+        /// Gets the current value.
+        /// </summary>
+        public Object CurrentValue
+        {
+            get { return _currentValue; }
+            set
+            {
+                _currentValue = value;
+            }
         }
 
         /// <summary>

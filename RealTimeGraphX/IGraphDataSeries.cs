@@ -27,5 +27,10 @@ namespace RealTimeGraphX
         /// Gets or sets a value indicating whether this series should be visible.
         /// </summary>
         bool IsVisible { get; set; }
+
+        /// <summary>
+        /// Gets the current value.
+        /// </summary>
+        Object CurrentValue { get; set; }
     }
 }

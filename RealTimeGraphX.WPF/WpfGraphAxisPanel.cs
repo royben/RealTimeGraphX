@@ -46,7 +46,7 @@ namespace RealTimeGraphX.WPF
         /// <summary>
         /// Updates the panel.
         /// </summary>
-        private void UpdatePanel()
+        public void UpdatePanel()
         {
             RowDefinitions.Clear();
             ColumnDefinitions.Clear();

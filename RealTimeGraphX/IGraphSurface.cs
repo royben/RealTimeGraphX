@@ -12,6 +12,16 @@ namespace RealTimeGraphX
     public interface IGraphSurface : IGraphComponent
     {
         /// <summary>
+        /// Occurs when the surface size has changed.
+        /// </summary>
+        event EventHandler SurfaceSizeChanged;
+
+        /// <summary>
+        /// Occurs when the surface zoom rectangle has changed.
+        /// </summary>
+        event EventHandler ZoomRectChanged;
+
+        /// <summary>
         /// Returns the actual size of the surface.
         /// </summary>
         /// <returns></returns>

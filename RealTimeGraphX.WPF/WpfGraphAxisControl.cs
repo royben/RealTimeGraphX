@@ -25,6 +25,7 @@ namespace RealTimeGraphX.WPF
     public class WpfGraphAxisControl : WpfGraphComponentBase
     {
         private ItemsControl _items_control;
+        private WpfGraphAxisPanel _axisPanel;
 
         /// <summary>
         /// Initializes the <see cref="WpfGraphAxisControl"/> class.
@@ -97,7 +98,35 @@ namespace RealTimeGraphX.WPF
             base.OnApplyTemplate();
 
             _items_control = GetTemplateChild("PART_ItemsControl") as ItemsControl;
+
+            _items_control.Loaded += (x, e) => 
+            {
+                ItemsPresenter itemsPresenter = GetVisualChild<ItemsPresenter>(_items_control);
+                _axisPanel = VisualTreeHelper.GetChild(itemsPresenter, 0) as WpfGraphAxisPanel;
+            };
+
             OnTicksChanged();
+        }
+
+        private static T GetVisualChild<T>(DependencyObject parent) where T : Visual
+        {
+            T child = default(T);
+
+            int numVisuals = VisualTreeHelper.GetChildrenCount(parent);
+            for (int i = 0; i < numVisuals; i++)
+            {
+                Visual v = (Visual)VisualTreeHelper.GetChild(parent, i);
+                child = v as T;
+                if (child == null)
+                {
+                    child = GetVisualChild<T>(v);
+                }
+                if (child != null)
+                {
+                    break;
+                }
+            }
+            return child;
         }
 
         /// <summary>
@@ -107,21 +136,15 @@ namespace RealTimeGraphX.WPF
         {
             Items = new ObservableCollection<WpfGraphAxisTickData>(Enumerable.Range(0, Ticks).Select(x => new WpfGraphAxisTickData()));
 
-            if (Controller != null)
-            {
-                Controller.RequestVirtualRangeChange();
-            }
+            Controller?.RequestVirtualRangeChange();
+
+            _axisPanel?.UpdatePanel();
         }
 
-        /// <summary>
-        /// Called when the controller has changed.
-        /// </summary>
-        /// <param name="oldController">The old controller.</param>
-        /// <param name="newController">The new controller.</param>
         protected override void OnControllerChanged(IGraphController oldController, IGraphController newController)
         {
             base.OnControllerChanged(oldController, newController);
-            
+
             if (newController != null)
             {
                 newController.RequestVirtualRangeChange();

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing.Drawing2D;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -39,6 +40,20 @@ namespace RealTimeGraphX.WPF
         private Point _current_mouse_position;
         private Point _last_mouse_position;
         private Grid _grid;
+
+        #region Events
+
+        /// <summary>
+        /// Occurs when the surface size has changed.
+        /// </summary>
+        public event EventHandler SurfaceSizeChanged;
+
+        /// <summary>
+        /// Occurs when the surface zoom rectangle has changed.
+        /// </summary>
+        public event EventHandler ZoomRectChanged;
+
+        #endregion
 
         #region Properties
 
@@ -177,6 +192,8 @@ namespace RealTimeGraphX.WPF
                 }
 
                 _zoom_rect = new System.Drawing.RectangleF((float)x, (float)y, _zoom_rect.Width, _zoom_rect.Height);
+
+                ZoomRectChanged?.Invoke(this, new EventArgs());
             }
 
             _last_mouse_position = _current_mouse_position;
@@ -202,6 +219,7 @@ namespace RealTimeGraphX.WPF
                 _zoom_rect = new System.Drawing.RectangleF((float)Canvas.GetLeft(_selection_rectangle), (float)Canvas.GetTop(_selection_rectangle), (float)_selection_rectangle.Width, (float)_selection_rectangle.Height);
                 _selection_rectangle.Visibility = Visibility.Hidden;
                 _is_scaled = true;
+                ZoomRectChanged?.Invoke(this, new EventArgs());
             }
         }
 
@@ -222,6 +240,7 @@ namespace RealTimeGraphX.WPF
             {
                 _zoom_rect = new System.Drawing.RectangleF();
                 _is_scaled = false;
+                ZoomRectChanged?.Invoke(this, new EventArgs());
             }
             else if (Keyboard.IsKeyDown(Key.LeftCtrl))
             {
@@ -301,7 +320,10 @@ namespace RealTimeGraphX.WPF
         /// <param name="points">The points.</param>
         public void DrawSeries(WpfGraphDataSeries dataSeries, IEnumerable<System.Drawing.PointF> points)
         {
-            _g.DrawCurve(dataSeries.GdiPen, points.ToArray());
+            GraphicsPath path = new GraphicsPath();
+            path.AddLines(points.ToArray());
+            _g.DrawPath(dataSeries.GdiPen, path);
+            path.Dispose();
         }
 
         /// <summary>
@@ -373,6 +395,7 @@ namespace RealTimeGraphX.WPF
         {
             _size = new System.Drawing.SizeF((float)e.NewSize.Width, (float)e.NewSize.Height);
             _size_changed = true;
+            SurfaceSizeChanged?.Invoke(this, new EventArgs());
         }
 
         #endregion

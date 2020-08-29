@@ -34,7 +34,7 @@
                         <ItemsControl x:Name="PART_ItemsControl" ItemsSource="{TemplateBinding Items}" ItemTemplate="{TemplateBinding ItemTemplate}">
                             <ItemsControl.ItemsPanel>
                                 <ItemsPanelTemplate>
-                                    <local:WpfGraphAxisPanel Orientation="{Binding RelativeSource={RelativeSource AncestorType=local:WpfGraphAxisControl},Path=Orientation}"></local:WpfGraphAxisPanel>
+                                    <local:WpfGraphAxisPanel x:Name="PART_AxisPanel" Orientation="{Binding RelativeSource={RelativeSource AncestorType=local:WpfGraphAxisControl},Path=Orientation}"></local:WpfGraphAxisPanel>
                                 </ItemsPanelTemplate>
                             </ItemsControl.ItemsPanel>
                         </ItemsControl>

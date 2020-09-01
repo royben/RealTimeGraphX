@@ -174,5 +174,15 @@ namespace RealTimeGraphX.DataPoints
         {
             return new DateTimeDataPoint(DateTime.Parse(value));
         }
+
+        /// <summary>
+        /// Return the default margins for this data point type.
+        /// <see cref="P:RealTimeGraphX.IGraphRange.AutoYFallbackMode" /> and <see cref="F:RealTimeGraphX.GraphRangeAutoYFallBackMode.Margins" />.
+        /// </summary>
+        /// <returns></returns>
+        protected override DateTimeDataPoint OnGetDefaultMargins()
+        {
+            return new DateTimeDataPoint(new DateTime(1, 1, 1, 1, 1, 1));
+        }
     }
 }

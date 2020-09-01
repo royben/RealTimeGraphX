@@ -285,8 +285,6 @@ namespace RealTimeGraphX
             }
         }
 
-        #endregion
-
         private void Render()
         {
             if (_to_render.Count > 0)
@@ -314,8 +312,16 @@ namespace RealTimeGraphX
 
                 if (min_y == max_y)
                 {
-                    min_y = _range.MinimumY;
-                    max_y = _range.MaximumY;
+                    if (_range.AutoYFallbackMode == GraphRangeAutoYFallBackMode.MinMax)
+                    {
+                        min_y = _range.MinimumY;
+                        max_y = _range.MaximumY;
+                    }
+                    else if (_range.AutoYFallbackMode == GraphRangeAutoYFallBackMode.Margins)
+                    {
+                        min_y -= _range.AutoYFallbackMargins;
+                        max_y += _range.AutoYFallbackMargins;
+                    }
                 }
 
                 EffectiveMinimumX = min_x;
@@ -407,6 +413,8 @@ namespace RealTimeGraphX
                 OnVirtualRangeChanged(VirtualMinimumX, VirtualMaximumX, VirtualMinimumY, VirtualMaximumY);
             }
         }
+
+        #endregion
 
         #region Protected Methods
 

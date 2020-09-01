@@ -24,6 +24,7 @@ namespace RealTimeGraphX.WPF.Demo
             Controller.Range.MaximumY = 1080;
             Controller.Range.MaximumX = TimeSpan.FromSeconds(10);
             Controller.Range.AutoY = true;
+            Controller.Range.AutoYFallbackMode = GraphRangeAutoYFallBackMode.MinMax;
 
             Controller.DataSeriesCollection.Add(new WpfGraphDataSeries()
             {

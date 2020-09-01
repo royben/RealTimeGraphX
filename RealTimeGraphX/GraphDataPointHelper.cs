@@ -44,5 +44,15 @@ namespace RealTimeGraphX
         {
             return Activator.CreateInstance(typeof(T)) as T;
         }
+
+        /// <summary>
+        /// Gets the default margins for the specified IGraphDataPoint.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <returns></returns>
+        public static T GetDefaultMargins<T>() where T : class, IGraphDataPoint
+        {
+            return Init<T>().GetDefaultMargins() as T;
+        }
     }
 }

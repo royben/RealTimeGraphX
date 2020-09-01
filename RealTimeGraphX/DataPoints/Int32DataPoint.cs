@@ -179,5 +179,15 @@ namespace RealTimeGraphX.DataPoints
         {
             return new Int32DataPoint(int.Parse(value));
         }
+
+        /// <summary>
+        /// Return the default margins for this data point type.
+        /// <see cref="P:RealTimeGraphX.IGraphRange.AutoYFallbackMode" /> and <see cref="F:RealTimeGraphX.GraphRangeAutoYFallBackMode.Margins" />.
+        /// </summary>
+        /// <returns></returns>
+        protected override Int32DataPoint OnGetDefaultMargins()
+        {
+            return new Int32DataPoint(1);
+        }
     }
 }

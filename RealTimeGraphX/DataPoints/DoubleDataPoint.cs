@@ -174,5 +174,15 @@ namespace RealTimeGraphX.DataPoints
         {
             return new DoubleDataPoint(double.Parse(value));
         }
+
+        /// <summary>
+        /// Return the default margins for this data point type.
+        /// <see cref="IGraphRange.AutoYFallbackMode" /> and <see cref="GraphRangeAutoYFallBackMode.Margins" />.
+        /// </summary>
+        /// <returns></returns>
+        protected override DoubleDataPoint OnGetDefaultMargins()
+        {
+            return new DoubleDataPoint(0.5);
+        }
     }
 }

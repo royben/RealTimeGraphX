@@ -174,5 +174,15 @@ namespace RealTimeGraphX.DataPoints
         {
             return new FloatDataPoint(float.Parse(value));
         }
+
+        /// <summary>
+        /// Return the default margins for this data point type.
+        /// <see cref="IGraphRange.AutoYFallbackMode" /> and <see cref="GraphRangeAutoYFallBackMode.Margins" />.
+        /// </summary>
+        /// <returns></returns>
+        protected override FloatDataPoint OnGetDefaultMargins()
+        {
+            return new FloatDataPoint(0.5f);
+        }
     }
 }

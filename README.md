@@ -5,7 +5,7 @@ The library core components are built using .Net Standard which makes it portabl
 
 Typical use case is, scientific measurements applications which requires real-time display with large data volumes.
 
-RealTimeGraphX has a number of built-in data point types (axis) like Double, Float, Int32 and TimeSpan, but you can easily implement any kind of custom data type by inheriting and implementing the mathematical logic for that type.
+RealTimeGraphX has a number of built-in data point types (axis) like Double, Float, Int32 ,TimeSpan and DateTime, but you can easily implement any kind of custom data type by inheriting and implementing the mathematical logic for that type.
 
 ### Features:
 - **High performance**

@@ -427,8 +427,8 @@ namespace RealTimeGraphX
         {
             if (previous != null)
             {
-                previous.SurfaceSizeChanged += Surface_SurfaceSizeChanged;
-                previous.ZoomRectChanged += Surface_ZoomRectChanged;
+                previous.SurfaceSizeChanged -= Surface_SurfaceSizeChanged;
+                previous.ZoomRectChanged -= Surface_ZoomRectChanged;
             }
 
             if (surface != null)

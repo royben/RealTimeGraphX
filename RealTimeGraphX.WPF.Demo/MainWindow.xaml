@@ -7,7 +7,7 @@
         xmlns:collections="clr-namespace:System.Collections;assembly=mscorlib"
         xmlns:realTimeGraphX="clr-namespace:RealTimeGraphX.WPF;assembly=RealTimeGraphX.WPF"
         mc:Ignorable="d"
-        Title="RealtimeGraphX WPF Demo" Height="557" Width="1168.5" d:DataContext="{d:DesignData Type=local:MainWindowVM, IsDesignTimeCreatable=False}">
+        Title="RealtimeGraphX WPF Demo" Height="587" Width="1168.5" d:DataContext="{d:DesignData Type=local:MainWindowVM, IsDesignTimeCreatable=False}">
 
     <Window.Resources>
         <collections:ArrayList x:Key="colors">
@@ -34,7 +34,7 @@
                         <ColumnDefinition Width="1*"/>
                         <ColumnDefinition Width="200"/>
                     </Grid.ColumnDefinitions>
-                    <local:WpfGraphControl Margin="10" Controller="{Binding Controller}" />
+                    <local:WpfGraphControl x:Name="graph" Margin="10" Controller="{Binding Controller}" />
 
                     <Border Grid.Column="1" Margin="10" BorderBrush="Gray" BorderThickness="1" CornerRadius="5" Padding="5">
                         <StackPanel>
@@ -60,6 +60,8 @@
 
                             <TextBlock FontSize="10" Margin="0 10 0 0">Fill</TextBlock>
                             <ComboBox Margin="0 5 0 0" ItemsSource="{StaticResource brushes}" SelectedItem="{Binding Controller.DataSeriesCollection[0].Fill}"/>
+
+                            <CheckBox Margin="0 10 0 0" IsChecked="{Binding ElementName=graph,Path=DisplayToolTip}">Display ToolTip</CheckBox>
 
                             <CheckBox Margin="0 10 0 0" IsChecked="{Binding Controller.IsPaused,Mode=TwoWay}">Paused</CheckBox>
 

@@ -29,6 +29,18 @@ namespace RealTimeGraphX.WPF.Demo
             DependencyProperty.Register("Controller", typeof(IGraphController), typeof(WpfGraphControl), new PropertyMetadata(null));
 
         /// <summary>
+        /// Gets or sets a value indicating whether to display a tool tip with the current cursor value.
+        /// </summary>
+        public bool DisplayToolTip
+        {
+            get { return (bool)GetValue(DisplayToolTipProperty); }
+            set { SetValue(DisplayToolTipProperty, value); }
+        }
+        public static readonly DependencyProperty DisplayToolTipProperty =
+            DependencyProperty.Register("DisplayToolTip", typeof(bool), typeof(WpfGraphControl), new PropertyMetadata(false));
+
+
+        /// <summary>
         /// Initializes the <see cref="WpfGraphControl"/> class.
         /// </summary>
         static WpfGraphControl()

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Drawing.Drawing2D;
 using System.Linq;
 using System.Text;
@@ -40,6 +41,8 @@ namespace RealTimeGraphX.WPF
         private Point _current_mouse_position;
         private Point _last_mouse_position;
         private Grid _grid;
+        private Border _borderToolTip;
+        private ContentControl _toolTipContentControl;
 
         #region Events
 
@@ -79,6 +82,28 @@ namespace RealTimeGraphX.WPF
         public static readonly DependencyProperty ControllerProperty =
             DependencyProperty.Register("Controller", typeof(IGraphController<WpfGraphDataSeries>), typeof(WpfGraphSurface), new PropertyMetadata(null, (d, e) => (d as WpfGraphSurface).OnControllerChanged(e.OldValue as IGraphController<WpfGraphDataSeries>, e.NewValue as IGraphController<WpfGraphDataSeries>)));
 
+        /// <summary>
+        /// Gets or sets a value indicating whether to display a tool tip with the current cursor value.
+        /// </summary>
+        public bool DisplayToolTip
+        {
+            get { return (bool)GetValue(DisplayToolTipProperty); }
+            set { SetValue(DisplayToolTipProperty, value); }
+        }
+        public static readonly DependencyProperty DisplayToolTipProperty =
+            DependencyProperty.Register("DisplayToolTip", typeof(bool), typeof(WpfGraphSurface), new PropertyMetadata(false));
+
+        /// <summary>
+        /// Gets or sets the tool tip template.
+        /// </summary>
+        public DataTemplate ToolTipTemplate
+        {
+            get { return (DataTemplate)GetValue(ToolTipTemplateProperty); }
+            set { SetValue(ToolTipTemplateProperty, value); }
+        }
+        public static readonly DependencyProperty ToolTipTemplateProperty =
+            DependencyProperty.Register("ToolTipTemplate", typeof(DataTemplate), typeof(WpfGraphSurface), new PropertyMetadata(null));
+
         #endregion
 
         #region Constructors
@@ -113,10 +138,14 @@ namespace RealTimeGraphX.WPF
             _selection_rectangle = GetTemplateChild("PART_SelectionRectangle") as Rectangle;
             _selection_canvas = GetTemplateChild("PART_SelectionCanvas") as Canvas;
             _grid = GetTemplateChild("PART_Grid") as Grid;
+            _borderToolTip = GetTemplateChild("PART_BorderToolTip") as Border;
+            _toolTipContentControl = GetTemplateChild("PART_ToolTipContent") as ContentControl;
 
             _selection_canvas.MouseDown += OnSelectionCanvasMouseDown;
             _selection_canvas.MouseUp += OnSelectionCanvasMouseUp;
             _selection_canvas.MouseMove += OnSelectionCanvasMouseMove;
+            _selection_canvas.MouseEnter += OnSelectionCanvasMouseEnter;
+            _selection_canvas.MouseLeave += OnSelectionCanvasMouseLeave;
         }
 
         #endregion
@@ -197,6 +226,68 @@ namespace RealTimeGraphX.WPF
             }
 
             _last_mouse_position = _current_mouse_position;
+
+            OnApplyToolTip(_last_mouse_position);
+        }
+
+        /// <summary>
+        /// Called when the tool tip position and content are being set.
+        /// </summary>
+        /// <param name="position">The position.</param>
+        protected virtual void OnApplyToolTip(Point position)
+        {
+            if (_borderToolTip != null)
+            {
+                if (DisplayToolTip)
+                {
+                    if (_toolTipContentControl != null)
+                    {
+                        _toolTipContentControl.Content = Controller.TranslateSurfaceY(position.Y)?.GetValue();
+                    }
+
+                    _borderToolTip.Opacity = 1;
+
+                    if (position.X + 24 + _borderToolTip.ActualWidth > _selection_canvas.ActualWidth)
+                    {
+                        Canvas.SetLeft(_borderToolTip, position.X - _borderToolTip.ActualWidth - 16);
+                    }
+                    else
+                    {
+                        Canvas.SetLeft(_borderToolTip, position.X + 24);
+                    }
+
+                    Canvas.SetTop(_borderToolTip, position.Y + 10);
+
+                    if (position.Y + 10 + _borderToolTip.ActualHeight > _selection_canvas.ActualHeight)
+                    {
+                        Canvas.SetTop(_borderToolTip, position.Y - _borderToolTip.ActualHeight);
+                    }
+                    else
+                    {
+                        Canvas.SetTop(_borderToolTip, position.Y + 10);
+                    }
+                }
+            }
+        }
+
+        /// <summary>
+        /// Called when the mouse has entered the active graph area.
+        /// </summary>
+        /// <param name="sender">The sender.</param>
+        /// <param name="e">The <see cref="MouseEventArgs"/> instance containing the event data.</param>
+        protected virtual void OnSelectionCanvasMouseEnter(object sender, MouseEventArgs e)
+        {
+            if (_borderToolTip != null) _borderToolTip.Opacity = 1;
+        }
+
+        /// <summary>
+        /// Called when the mouse has left the active graph area.
+        /// </summary>
+        /// <param name="sender">The sender.</param>
+        /// <param name="e">The <see cref="MouseEventArgs"/> instance containing the event data.</param>
+        protected virtual void OnSelectionCanvasMouseLeave(object sender, MouseEventArgs e)
+        {
+            if (_borderToolTip != null) _borderToolTip.Opacity = 0;
         }
 
         /// <summary>

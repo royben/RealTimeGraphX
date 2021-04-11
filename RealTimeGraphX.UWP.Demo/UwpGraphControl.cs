@@ -22,12 +22,18 @@ namespace RealTimeGraphX.UWP.Demo
             set { SetValue(ControllerProperty, value); }
         }
         public static readonly DependencyProperty ControllerProperty =
-            DependencyProperty.Register("Controller", typeof(IGraphController), typeof(UwpGraphControl), new PropertyMetadata(null,(d,e) => (d as UwpGraphControl).OnControllerChanged(e.OldValue as IGraphController, e.NewValue as IGraphController)));
+            DependencyProperty.Register("Controller", typeof(IGraphController), typeof(UwpGraphControl), new PropertyMetadata(null));
 
-        private void OnControllerChanged(IGraphController graphController1, IGraphController graphController2)
+        /// <summary>
+        /// Gets or sets a value indicating whether to display a tool tip with the current cursor value.
+        /// </summary>
+        public bool DisplayToolTip
         {
-            
+            get { return (bool)GetValue(DisplayToolTipProperty); }
+            set { SetValue(DisplayToolTipProperty, value); }
         }
+        public static readonly DependencyProperty DisplayToolTipProperty =
+            DependencyProperty.Register("DisplayToolTip", typeof(bool), typeof(UwpGraphControl), new PropertyMetadata(false));
 
         public UwpGraphControl()
         {

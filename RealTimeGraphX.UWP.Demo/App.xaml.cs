@@ -31,7 +31,7 @@ namespace RealTimeGraphX.UWP.Demo
         {
             this.InitializeComponent();
 
-            ApplicationView.PreferredLaunchViewSize = new Size(1168, 557);
+            ApplicationView.PreferredLaunchViewSize = new Size(1168, 577);
             ApplicationView.PreferredLaunchWindowingMode = ApplicationViewWindowingMode.PreferredLaunchViewSize;
 
             this.Suspending += OnSuspending;

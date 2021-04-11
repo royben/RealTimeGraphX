@@ -39,7 +39,7 @@
 
                             <Grid Grid.Column="1">
                                 <realTimeGraphX:UwpGraphGridLines Controller="{TemplateBinding Controller}" Foreground="#FF2E2E2E" />
-                                <realTimeGraphX:UwpGraphSurface x:Name="surface" Controller="{Binding RelativeSource={RelativeSource Mode=TemplatedParent},Mode=OneWay,Path=Controller}" BorderThickness="1 0 0 1" BorderBrush="{TemplateBinding Foreground}" />
+                                <realTimeGraphX:UwpGraphSurface x:Name="surface" Controller="{Binding RelativeSource={RelativeSource Mode=TemplatedParent},Mode=OneWay,Path=Controller}" DisplayToolTip="{TemplateBinding DisplayToolTip}" BorderThickness="1 0 0 1" BorderBrush="{TemplateBinding Foreground}" />
                             </Grid>
 
                             <realTimeGraphX:UwpGraphAxisControl Orientation="Vertical" Controller="{TemplateBinding Controller}" StringFormat="0.0" />

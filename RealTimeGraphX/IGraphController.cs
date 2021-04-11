@@ -106,6 +106,19 @@ namespace RealTimeGraphX
         /// </summary>
         void RequestVirtualRangeChange();
 
+        /// <summary>
+        /// Translates a surface x position to graph value.
+        /// </summary>
+        /// <param name="surfaceXPosition">The surface x position.</param>
+        IGraphDataPoint TranslateSurfaceX(double surfaceXPosition);
+
+        /// <summary>
+        /// Translates a surface y position to graph value.
+        /// </summary>
+        /// <param name="surfaceYPosition">The surface y position.</param>
+        /// <returns></returns>
+        IGraphDataPoint TranslateSurfaceY(double surfaceYPosition);
+
         #endregion
     }
 

@@ -226,13 +226,28 @@ namespace RealTimeGraphX
         {
             while (true)
             {
-                if (!IsPaused && !DisableRendering)
+                if ((!IsPaused && !DisableRendering) || _clear)
                 {
                     try
                     {
                         List<List<PendingSeries>> pending_lists = new List<List<PendingSeries>>();
 
                         var pending_list_first = _pending_series_collection.BlockDequeue();
+
+                        if (_clear)
+                        {
+                            _clear = false;
+                            _to_render.Clear();
+                            Surface?.BeginDraw();
+                            Surface?.EndDraw();
+
+                            while (_pending_series_collection.Count > 0)
+                            {
+                                _pending_series_collection.BlockDequeue();
+                            }
+                            continue;
+                        }
+
                         pending_lists.Add(pending_list_first);
 
                         while (_pending_series_collection.Count > 0)
@@ -245,12 +260,7 @@ namespace RealTimeGraphX
                         {
                             foreach (var pending_series in pending_list)
                             {
-                                if (pending_series.IsClearSeries)
-                                {
-                                    _pending_series_collection = new GraphDataQueue<List<PendingSeries>>();
-                                    _to_render.Clear();
-                                }
-                                else if (!pending_series.IsUpdateSeries)
+                                if (!pending_series.IsUpdateSeries)
                                 {
                                     if (_to_render.ContainsKey(pending_series.Series))
                                     {
@@ -340,12 +350,6 @@ namespace RealTimeGraphX
                 {
                     var surface_size = Surface.GetSize();
                     var zoom_rect = Surface.GetZoomRect();
-
-                    if (_clear)
-                    {
-                        _to_render.Clear();
-                        _clear = false;
-                    }
 
                     if (surface_size.Width > 0 && surface_size.Height > 0)
                     {
@@ -669,12 +673,13 @@ namespace RealTimeGraphX
         public void Clear()
         {
             _clear = true;
+
             _pending_series_collection.BlockEnqueue(new List<PendingSeries>()
             {
-                new PendingSeries()
-                {
-                    IsClearSeries = true
-                },
+                  new PendingSeries()
+                  {
+                      IsClearSeries = true
+                  },
             });
         }
 
@@ -684,6 +689,42 @@ namespace RealTimeGraphX
         public void RequestVirtualRangeChange()
         {
             OnVirtualRangeChanged(Range.MaximumX, Range.MaximumX, Range.MinimumY, Range.MaximumY);
+        }
+
+        /// <summary>
+        /// Translates a surface x position to graph value.
+        /// </summary>
+        /// <param name="surfaceXPosition">The surface x position.</param>
+        /// <returns></returns>
+        public IGraphDataPoint TranslateSurfaceX(double surfaceXPosition)
+        {
+            if (Surface != null)
+            {
+                var relativeX = surfaceXPosition / Surface.GetSize().Width;
+                return GraphDataPointHelper.ComputeAbsolutePosition(VirtualMinimumX, VirtualMaximumX, relativeX);
+            }
+            else
+            {
+                return default(IGraphDataPoint);
+            }
+        }
+
+        /// <summary>
+        /// Translates a surface y position to graph value.
+        /// </summary>
+        /// <param name="surfaceYPosition">The surface y position.</param>
+        /// <returns></returns>
+        public IGraphDataPoint TranslateSurfaceY(double surfaceYPosition)
+        {
+            if (Surface != null)
+            {
+                var relativeY = 1 - surfaceYPosition / Surface.GetSize().Height;
+                return GraphDataPointHelper.ComputeAbsolutePosition(VirtualMinimumY, VirtualMaximumY, relativeY);
+            }
+            else
+            {
+                return default(IGraphDataPoint);
+            }
         }
 
         #endregion

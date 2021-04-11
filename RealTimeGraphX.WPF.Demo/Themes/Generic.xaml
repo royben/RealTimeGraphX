@@ -39,7 +39,7 @@
 
                             <Grid Grid.Column="1">
                                 <realTimeGraphX:WpfGraphGridLines Controller="{TemplateBinding Controller}" Foreground="#FF2E2E2E" />
-                                <realTimeGraphX:WpfGraphSurface x:Name="surface" Controller="{TemplateBinding Controller}" BorderThickness="1 0 0 1" BorderBrush="{TemplateBinding Foreground}" />
+                                <realTimeGraphX:WpfGraphSurface x:Name="surface" Controller="{TemplateBinding Controller}" DisplayToolTip="{TemplateBinding DisplayToolTip}" BorderThickness="1 0 0 1" BorderBrush="{TemplateBinding Foreground}" />
                             </Grid>
 
                             <realTimeGraphX:WpfGraphAxisControl Orientation="Vertical" Controller="{TemplateBinding Controller}" StringFormat="0.0" />

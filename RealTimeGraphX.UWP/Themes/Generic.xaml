@@ -8,6 +8,22 @@
     xmlns:local="using:RealTimeGraphX.UWP">
 
     <Style TargetType="local:UwpGraphSurface">
+        <Setter Property="ToolTipTemplate">
+            <Setter.Value>
+                <DataTemplate>
+                    <Border 
+                        Opacity="0.8"
+                        BorderThickness="1" 
+                        Padding="10 5"
+                        CornerRadius="5"
+                        BorderBrush="DodgerBlue"
+                        Background="#151515">
+
+                        <TextBlock Text="{Binding}"></TextBlock>
+                    </Border>
+                </DataTemplate>
+            </Setter.Value>
+        </Setter>
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="local:UwpGraphSurface">
@@ -21,6 +37,10 @@
 
                             <Canvas x:Name="PART_SelectionCanvas" Background="Transparent">
                                 <Rectangle x:Name="PART_SelectionRectangle" Fill="#7BFFFFFF" Canvas.Top="0" Canvas.Left="0" Width="0" Height="0" Visibility="Collapsed"></Rectangle>
+
+                                <Border x:Name="PART_BorderToolTip" Opacity="0" Visibility="Collapsed">
+                                    <ContentControl x:Name="PART_ToolTipContent" ContentTemplate="{TemplateBinding ToolTipTemplate}"></ContentControl>
+                                </Border>
                             </Canvas>
                         </Grid>
                     </Border>

@@ -11,7 +11,7 @@
     xmlns:collections="using:System.Collections"
     xmlns:realTimeGraphX="using:RealTimeGraphX.UWP"
     mc:Ignorable="d"
-    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}" Height="557" Width="1168.5">
+    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}" Height="600" Width="1168.5">
 
     <Page.Resources>
         <converters:DataPointToStringConverter x:Key="DataPointToStringConverter" />
@@ -43,7 +43,7 @@
                         <ColumnDefinition Width="1*"/>
                         <ColumnDefinition Width="200"/>
                     </Grid.ColumnDefinitions>
-                    <local:UwpGraphControl Margin="0 10 10 10" Controller="{Binding Controller,Mode=OneWay}" />
+                    <local:UwpGraphControl x:Name="graph" Margin="0 10 10 10" Controller="{Binding Controller,Mode=OneWay}" />
 
                     <Border Grid.Column="1" Margin="10" BorderBrush="Gray" BorderThickness="1" CornerRadius="5" Padding="5">
                         <StackPanel>
@@ -92,6 +92,8 @@
                                     </local:NamedBrush.Brush>
                                 </local:NamedBrush>
                             </ComboBox>
+
+                            <CheckBox Margin="0 10 0 0" IsChecked="{Binding ElementName=graph,Path=DisplayToolTip,Mode=TwoWay}">Display ToolTip</CheckBox>
 
                             <CheckBox IsChecked="{Binding Controller.IsPaused,Mode=TwoWay}">Paused</CheckBox>
 

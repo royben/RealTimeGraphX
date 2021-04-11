@@ -409,7 +409,7 @@ namespace RealTimeGraphX.WPF
         /// </summary>
         /// <param name="dataSeries">The data series.</param>
         /// <param name="points">The points.</param>
-        public void DrawSeries(WpfGraphDataSeries dataSeries, IEnumerable<System.Drawing.PointF> points)
+        public virtual void DrawSeries(WpfGraphDataSeries dataSeries, IEnumerable<System.Drawing.PointF> points)
         {
             GraphicsPath path = new GraphicsPath();
             path.AddLines(points.ToArray());
@@ -422,7 +422,7 @@ namespace RealTimeGraphX.WPF
         /// </summary>
         /// <param name="dataSeries">The data series.</param>
         /// <param name="points">The points.</param>
-        public void FillSeries(WpfGraphDataSeries dataSeries, IEnumerable<System.Drawing.PointF> points)
+        public virtual void FillSeries(WpfGraphDataSeries dataSeries, IEnumerable<System.Drawing.PointF> points)
         {
             var brush = dataSeries.GdiFill;
 

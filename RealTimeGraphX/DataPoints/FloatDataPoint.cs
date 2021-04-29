@@ -147,8 +147,8 @@ namespace RealTimeGraphX.DataPoints
         /// <returns></returns>
         public override IEnumerable<IGraphDataPoint> CreateRange(IGraphDataPoint min, IGraphDataPoint max, int count)
         {
-            double minimum = (double)min.GetValue();
-            double maximum = (double)max.GetValue();
+            float minimum = (float)min.GetValue();
+            float maximum = (float)max.GetValue();
 
             return Enumerable.Range(0, count).
                 Select(i => minimum + (maximum - minimum) * ((double)i / (count - 1))).

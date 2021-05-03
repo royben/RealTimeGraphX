@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<package >
+  <metadata>
+    <id>RealTimeGraphX.UWP</id>
+    <version>1.0.0</version>
+    <description>RealTimeGraphX is a data type agnostic, high performance plotting library for WPF and UWP.</description>
+    <title>RealTimeGraphX.WPF</title>
+    <authors>Roy Ben Shabat</authors>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <license type="expression">MIT</license>
+    <projectUrl>https://github.com/royben/RealTimeGraphX</projectUrl>
+    <icon>icon.png</icon>
+    <tags>Chart Graph Plotting RealTime WPF UWP</tags>
+  </metadata>
+</package>

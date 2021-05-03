@@ -1,5 +1,5 @@
 # RealTimeGraphX
-RealTimeGraphX is a data type agnostic, high performance plotting library for WPF, UWP and soon, Xamarin Forms.
+RealTimeGraphX is a data type agnostic, high performance plotting library for WPF and UWP.
 
 The library core components are built using .Net Standard which makes it portable to a range of platforms.
 

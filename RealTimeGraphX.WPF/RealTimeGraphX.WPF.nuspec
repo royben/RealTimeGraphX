@@ -11,5 +11,8 @@
     <projectUrl>https://github.com/royben/RealTimeGraphX</projectUrl>
     <icon>icon.png</icon>
     <tags>Chart Graph Plotting RealTime WPF UWP</tags>
+    <dependencies>
+        <dependency id="RealTimeGraphX" version="1.*" exclude="Build,Analyzers" />
+    </dependencies>
   </metadata>
 </package>

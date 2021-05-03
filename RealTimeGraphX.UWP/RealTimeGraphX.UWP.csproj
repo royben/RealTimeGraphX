@@ -151,7 +151,9 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
-    <None Include="RealTimeGraphX.UWP.nuspec" />
+    <None Include="RealTimeGraphX.UWP.nuspec">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <None Include="icon.png">

@@ -15,4 +15,8 @@
         <dependency id="RealTimeGraphX" version="1.*" exclude="Build,Analyzers" />
     </dependencies>
   </metadata>
+
+  <files>
+    <file src="icon.png" target="\" />
+  </files>
 </package>

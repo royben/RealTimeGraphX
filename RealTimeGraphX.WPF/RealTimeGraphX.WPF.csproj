@@ -87,9 +87,7 @@
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
-    <None Include="RealTimeGraphX.WPF.nuspec">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
+    <None Include="RealTimeGraphX.WPF.nuspec" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\RealTimeGraphX\RealTimeGraphX.csproj">
@@ -98,9 +96,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <None Include="icon.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
+    <None Include="icon.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

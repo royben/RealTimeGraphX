@@ -12,7 +12,9 @@
     <icon>icon.png</icon>
     <tags>Chart Graph Plotting RealTime WPF UWP</tags>
     <dependencies>
+      <group targetFramework=".NETFramework4.6.1">
         <dependency id="RealTimeGraphX" version="1.*" exclude="Build,Analyzers" />
+      </group>
     </dependencies>
   </metadata>
 

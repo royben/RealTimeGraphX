@@ -20,7 +20,7 @@
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
-    <DocumentationFile></DocumentationFile>
+    <DocumentationFile>C:\DATA\Development\RealTimeGraphX\RealTimeGraphX\bin\Release\RealTimeGraphX.xml</DocumentationFile>
   </PropertyGroup>
 
   <ItemGroup>

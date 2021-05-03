@@ -14,6 +14,10 @@
     <dependencies>
       <group targetFramework=".NETFramework4.6.1">
         <dependency id="RealTimeGraphX" version="1.*" exclude="Build,Analyzers" />
+        <dependency id="Microsoft.NETCore.UniversalWindowsPlatform" version="6.1.5" exclude="Build,Analyzers" />
+        <dependency id="Microsoft.Toolkit.Uwp.UI.Controls" version="4.0.0" exclude="Build,Analyzers" />
+        <dependency id="Microsoft.Xaml.Behaviors.Uwp.Managed" version="2.0.0" exclude="Build,Analyzers" />
+        <dependency id="Win2D.uwp" version="1.23.0" exclude="Build,Analyzers" />
       </group>
     </dependencies>
   </metadata>

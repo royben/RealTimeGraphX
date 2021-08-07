@@ -1,4 +1,7 @@
 # RealTimeGraphX
+
+[![Build Status](https://sirilix.visualstudio.com/RealTimeGraphX/_apis/build/status/RealTimeGraphX?branchName=master)](https://sirilix.visualstudio.com/RealTimeGraphX/_build/latest?definitionId=5&branchName=master) ![GitHub](https://img.shields.io/github/license/royben/RealTimeGraphX) [![Nuget](https://img.shields.io/nuget/v/RealTimeGraphX?label=RealTimeGraphX%20Nuget)](https://www.nuget.org/packages/RealTimeGraphX/) [![Nuget](https://img.shields.io/nuget/v/RealTimeGraphX.WPF?label=RealTimeGraphX.WPF%20Nuget)](https://www.nuget.org/packages/RealTimeGraphX.WPF/)
+
 RealTimeGraphX is a data type agnostic, high performance plotting library for WPF and UWP.
 
 The library core components are built using .Net Standard which makes it portable to a range of platforms.

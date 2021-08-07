@@ -132,8 +132,8 @@ namespace RealTimeGraphX.DataPoints
         /// <returns></returns>
         public override IGraphDataPoint ComputeAbsolutePosition(IGraphDataPoint min, IGraphDataPoint max, double percentage)
         {
-            double minimum = (double)min.GetValue();
-            double maximum = (double)max.GetValue();
+            double minimum = Convert.ToDouble(min.GetValue());
+            double maximum = Convert.ToDouble(max.GetValue());
 
             return new FloatDataPoint((float)(minimum + (maximum - minimum) * percentage));
         }

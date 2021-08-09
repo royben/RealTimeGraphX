@@ -354,6 +354,8 @@ namespace RealTimeGraphX.WPF
         /// <param name="newController">The new controller.</param>
         protected virtual void OnControllerChanged(IGraphController<WpfGraphDataSeries> oldController, IGraphController<WpfGraphDataSeries> newController)
         {
+            _size_changed = true;
+
             if (oldController != null)
             {
                 oldController.Surface = null;

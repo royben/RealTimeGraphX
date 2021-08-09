@@ -276,7 +276,10 @@ namespace RealTimeGraphX
                             }
                         }
 
-                        Render();
+                        if (Surface != null)
+                        {
+                            Render();
+                        }
                     }
                     catch (Exception ex)
                     {
@@ -285,7 +288,10 @@ namespace RealTimeGraphX
                 }
                 else if (IsPaused && !DisableRendering)
                 {
-                    Render();
+                    if (Surface != null)
+                    {
+                        Render();
+                    }
                     Thread.Sleep(RefreshRate);
                 }
                 else
@@ -409,7 +415,7 @@ namespace RealTimeGraphX
                             }
                         }
 
-                        Surface.EndDraw();
+                        Surface?.EndDraw();
                     }
                 }
 

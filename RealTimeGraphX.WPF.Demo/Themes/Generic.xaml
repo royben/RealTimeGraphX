@@ -6,6 +6,8 @@
 
 
     <Style TargetType="{x:Type local:WpfGraphControl}">
+        <Setter Property="StringFormatX" Value="0.0"></Setter>
+        <Setter Property="StringFormatY" Value="hh\:mm\:ss"></Setter>
         <Setter Property="BorderThickness" Value="1"></Setter>
         <Setter Property="BorderBrush" Value="#FF2E2E2E"></Setter>
         <Setter Property="Padding" Value="20 20 30 20"></Setter>
@@ -42,8 +44,8 @@
                                 <realTimeGraphX:WpfGraphSurface x:Name="surface" Controller="{TemplateBinding Controller}" DisplayToolTip="{TemplateBinding DisplayToolTip}" BorderThickness="1 0 0 1" BorderBrush="{TemplateBinding Foreground}" />
                             </Grid>
 
-                            <realTimeGraphX:WpfGraphAxisControl Orientation="Vertical" Controller="{TemplateBinding Controller}" StringFormat="0.0" />
-                            <realTimeGraphX:WpfGraphAxisControl Orientation="Horizontal" Controller="{TemplateBinding Controller}" Grid.Column="1" Grid.Row="1" StringFormat="hh\:mm\:ss"/>
+                            <realTimeGraphX:WpfGraphAxisControl Orientation="Vertical" Controller="{TemplateBinding Controller}" StringFormat="{TemplateBinding StringFormatX}" />
+                            <realTimeGraphX:WpfGraphAxisControl Orientation="Horizontal" Controller="{TemplateBinding Controller}" Grid.Column="1" Grid.Row="1" StringFormat="{TemplateBinding StringFormatY}"/>
                         </Grid>
                     </Border>
                 </ControlTemplate>

@@ -56,6 +56,8 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Converters\ObjectEqualityConverter.cs" />
+    <Compile Include="ListGraphItemVM.cs" />
     <Compile Include="WpfGraphControl.cs" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>

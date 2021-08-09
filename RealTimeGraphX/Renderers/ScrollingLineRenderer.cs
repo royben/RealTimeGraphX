@@ -75,10 +75,10 @@ namespace RealTimeGraphX.Renderers
         {
             if (series.UseFill)
             {
-                surface.FillSeries(series, GetFillPoints(surface, points));
+                surface?.FillSeries(series, GetFillPoints(surface, points));
             }
 
-            surface.DrawSeries(series, points);
+            surface?.DrawSeries(series, points);
         }
     }
 }

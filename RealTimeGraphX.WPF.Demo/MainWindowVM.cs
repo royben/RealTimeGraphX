@@ -7,15 +7,22 @@ using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Media;
 
 namespace RealTimeGraphX.WPF.Demo
 {
     public class MainWindowVM
     {
+        private Random r = new Random();
+
         public WpfGraphController<TimeSpanDataPoint, DoubleDataPoint> Controller { get; set; }
 
         public WpfGraphController<TimeSpanDataPoint, DoubleDataPoint> MultiController { get; set; }
+
+        public List<ListGraphItemVM> ListItems { get; set; }
+
+        public List<ListGraphItemVM> ListItems2 { get; set; }
 
         public MainWindowVM()
         {
@@ -68,11 +75,38 @@ namespace RealTimeGraphX.WPF.Demo
                 Stroke = Colors.Gray,
             });
 
-            Stopwatch watch = new Stopwatch();
-            watch.Start();
+            ListItems = new List<ListGraphItemVM>();
 
+            for (int i = 1; i < 6; i++)
+            {
+                var item = new ListGraphItemVM();
+                item.Name = $"Item {i}";
+                item.StringFormat = $"F{i}";
+                item.Color = GetRandomColor();
+                ListItems.Add(item);
+            }
+
+            ListItems2 = new List<ListGraphItemVM>();
+
+            for (int i = 1; i < 6; i++)
+            {
+                var item = new ListGraphItemVM();
+                item.Name = $"Item {i}";
+                item.StringFormat = $"F{i}";
+                item.Color = GetRandomColor();
+                ListItems2.Add(item);
+            }
+
+            Application.Current.MainWindow.ContentRendered += (_, __) => Start();
+        }
+
+        private void Start()
+        {
             Task.Factory.StartNew(() =>
             {
+                Stopwatch watch = new Stopwatch();
+                watch.Start();
+
                 while (true)
                 {
                     var y = System.Windows.Forms.Cursor.Position.Y;
@@ -100,9 +134,20 @@ namespace RealTimeGraphX.WPF.Demo
                     Controller.PushData(x, y);
                     MultiController.PushData(xx, yy);
 
+                    for (int i = 0; i < ListItems.Count; i++)
+                    {
+                        ListItems[i].Controller.PushData(x, y + r.Next(0, 50 * (i + 1)));
+                        ListItems2[i].Controller.PushData(x, y + r.Next(0, 50 * (i + 1)));
+                    }
+
                     Thread.Sleep(30);
                 }
-            });
+            }, TaskCreationOptions.LongRunning);
+        }
+
+        private Color GetRandomColor()
+        {
+            return Color.FromRgb((byte)r.Next(50, 255), (byte)r.Next(50, 255), (byte)r.Next(50, 255));
         }
     }
 }

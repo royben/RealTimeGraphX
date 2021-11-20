@@ -12,7 +12,7 @@
     <PackageTags>Chart;Graph;Plotting;RealTime;WPF;UWP</PackageTags>
     <Authors>Roy Ben Shabat</Authors>
     <Company>Roy Ben Shabat</Company>
-    <Configurations>Release</Configurations>
+    <Configurations>Release;Debug</Configurations>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">

@@ -38,7 +38,7 @@
                         <ColumnDefinition Width="1*"/>
                         <ColumnDefinition Width="200"/>
                     </Grid.ColumnDefinitions>
-                    <local:WpfGraphControl x:Name="graph" Margin="10" Controller="{Binding Controller}" />
+                    <realTimeGraphX:WpfGraphControl x:Name="graph" Margin="10" Controller="{Binding Controller}" />
 
                     <Border Grid.Column="1" Margin="10" BorderBrush="Gray" BorderThickness="1" CornerRadius="5" Padding="5">
                         <StackPanel>
@@ -80,7 +80,7 @@
                         <ColumnDefinition Width="1*"/>
                         <ColumnDefinition Width="200"/>
                     </Grid.ColumnDefinitions>
-                    <local:WpfGraphControl Margin="10" Controller="{Binding MultiController}" />
+                    <realTimeGraphX:WpfGraphControl Margin="10" Controller="{Binding MultiController}" />
 
                     <Border Grid.Column="1" Margin="10" BorderBrush="Gray" BorderThickness="1" CornerRadius="5" Padding="5">
                         <StackPanel>
@@ -139,7 +139,7 @@
                         </ListBox.ItemTemplate>
                     </ListBox>
 
-                    <local:WpfGraphControl Grid.Column="2" Margin="10" Controller="{Binding ElementName=listItems,Path=SelectedItem.Controller}" StringFormatX="{Binding ElementName=listItems,Path=SelectedItem.StringFormat}" />
+                    <realTimeGraphX:WpfGraphControl Grid.Column="2" Margin="10" Controller="{Binding ElementName=listItems,Path=SelectedItem.Controller}" StringFormatX="{Binding ElementName=listItems,Path=SelectedItem.StringFormat}" />
                 </Grid>
             </TabItem>
 
@@ -192,7 +192,7 @@
                         </ItemsControl.ItemContainerStyle>
                         <ItemsControl.ItemTemplate>
                             <DataTemplate>
-                                <local:WpfGraphControl Grid.Column="2" Margin="10" Controller="{Binding Controller}" StringFormatX="{Binding StringFormat}" />
+                                <realTimeGraphX:WpfGraphControl Grid.Column="2" Margin="10" Controller="{Binding Controller}" StringFormatX="{Binding StringFormat}" />
                             </DataTemplate>
                         </ItemsControl.ItemTemplate>
                     </ItemsControl>

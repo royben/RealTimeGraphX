@@ -57,6 +57,7 @@
     <Compile Include="WpfGraphAxisControl.cs" />
     <Compile Include="WpfGraphAxisPanel.cs" />
     <Compile Include="WpfGraphAxisTickData.cs" />
+    <Compile Include="WpfGraphControl.cs" />
     <Compile Include="WpfGraphGridLines.cs" />
     <Compile Include="WpfGraphComponentBase.cs" />
     <Compile Include="WpfGraphDataSeries.cs" />

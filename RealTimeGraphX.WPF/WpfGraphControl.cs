@@ -63,6 +63,28 @@ namespace RealTimeGraphX.WPF
 
 
     /// <summary>
+    /// Gets or sets the caption of the Y axis
+    /// </summary>
+    public String AxisCaptionY
+    {
+      get { return (String)GetValue(AxisCaptionYProperty); }
+      set { SetValue(AxisCaptionYProperty, value); }
+    }
+    public static readonly DependencyProperty AxisCaptionYProperty =
+        DependencyProperty.Register("AxisCaptionY", typeof(String), typeof(WpfGraphControl), new PropertyMetadata(null));
+
+    /// <summary>
+    /// Gets or sets the caption of the X axis
+    /// </summary>
+    public String AxisCaptionX
+    {
+      get { return (String)GetValue(AxisCaptionXProperty); }
+      set { SetValue(AxisCaptionXProperty, value); }
+    }
+    public static readonly DependencyProperty AxisCaptionXProperty =
+        DependencyProperty.Register("AxisCaptionX", typeof(String), typeof(WpfGraphControl), new PropertyMetadata(null));
+
+    /// <summary>
     /// Initializes the <see cref="WpfGraphControl"/> class.
     /// </summary>
     static WpfGraphControl()

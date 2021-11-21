@@ -36,7 +36,7 @@ namespace RealTimeGraphX.WPF.Demo
             Controller.DataSeriesCollection.Add(new WpfGraphDataSeries()
             {
                 Name = "Series",
-                Stroke = Colors.DodgerBlue,
+                Stroke = Colors.Red,
             });
 
             MultiController = new WpfGraphController<TimeSpanDataPoint, DoubleDataPoint>();

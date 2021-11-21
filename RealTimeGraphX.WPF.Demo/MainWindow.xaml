@@ -38,9 +38,15 @@
                         <ColumnDefinition Width="1*"/>
                         <ColumnDefinition Width="200"/>
                     </Grid.ColumnDefinitions>
-                    <realTimeGraphX:WpfGraphControl x:Name="graph" Margin="10" Controller="{Binding Controller}" AxisCaptionX="Time [s]" AxisCaptionY="Voltage [V]"/>
+          <realTimeGraphX:WpfGraphControl x:Name="graph" Margin="10" 
+                                                    Controller="{Binding Controller}" 
+                                                    AxisCaptionX="Time [s]" 
+                                                    AxisCaptionY="Voltage [V]"
+                                                    Background="White"
+                                                    Foreground="Black"
+                                                    GridLinesBrush="LightGray"/>
 
-                    <Border Grid.Column="1" Margin="10" BorderBrush="Gray" BorderThickness="1" CornerRadius="5" Padding="5">
+          <Border Grid.Column="1" Margin="10" BorderBrush="Gray" BorderThickness="1" CornerRadius="5" Padding="5">
                         <StackPanel>
                             <TextBlock FontSize="10">Duration</TextBlock>
                             <TextBox Margin="0 5 0 0" Text="{Binding Controller.Range.MaximumX,Mode=TwoWay}"></TextBox>

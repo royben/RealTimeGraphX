@@ -196,7 +196,7 @@
     <Setter Property="BorderBrush" Value="#FF2E2E2E"></Setter>
     <Setter Property="Padding" Value="20 20 30 20"></Setter>
     <Setter Property="FontSize" Value="11"></Setter>
-    <Setter Property="Foreground" Value="DodgerBlue"></Setter>
+    <!--<Setter Property="Foreground" Value="DodgerBlue"></Setter>
     <Setter Property="Background">
       <Setter.Value>
         <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0" >
@@ -204,7 +204,7 @@
           <GradientStop Color="#FF333333" Offset="1"/>
         </LinearGradientBrush>
       </Setter.Value>
-    </Setter>
+    </Setter>-->
     <Setter Property="Template">
       <Setter.Value>
         <ControlTemplate TargetType="{x:Type local:WpfGraphControl}">
@@ -232,8 +232,8 @@
               </TextBlock>
 
               <Grid Grid.Column="2">
-                <local:WpfGraphGridLines Controller="{TemplateBinding Controller}" Foreground="#FF2E2E2E" />
-                <local:WpfGraphSurface x:Name="surface" Controller="{TemplateBinding Controller}" DisplayToolTip="{TemplateBinding DisplayToolTip}" BorderThickness="1 0 0 1" BorderBrush="{TemplateBinding Foreground}" />
+                <local:WpfGraphGridLines Controller="{TemplateBinding Controller}" Foreground="{TemplateBinding GridLinesBrush}" />
+                <local:WpfGraphSurface x:Name="surface" Controller="{TemplateBinding Controller}" DisplayToolTip="{TemplateBinding DisplayToolTip}" BorderThickness="1" BorderBrush="{TemplateBinding Foreground}" />
               </Grid>
 
               <local:WpfGraphAxisControl Orientation="Vertical" Controller="{TemplateBinding Controller}" Grid.Column="1" Grid.Row="0" StringFormat="{TemplateBinding StringFormatX}" />

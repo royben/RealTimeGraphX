@@ -85,6 +85,17 @@ namespace RealTimeGraphX.WPF
         DependencyProperty.Register("AxisCaptionX", typeof(String), typeof(WpfGraphControl), new PropertyMetadata(null));
 
     /// <summary>
+    /// Gets or sets the brush used for the grid lines
+    /// </summary>
+    public Brush GridLinesBrush
+    {
+      get { return (Brush)GetValue(GridLinesBrushProperty); }
+      set { SetValue(GridLinesBrushProperty, value); }
+    }
+    public static readonly DependencyProperty GridLinesBrushProperty =
+        DependencyProperty.Register( "GridLinesBrush", typeof(Brush), typeof(WpfGraphControl), new PropertyMetadata((SolidColorBrush)new BrushConverter().ConvertFrom("#FF2E2E2E")) ) ;
+
+    /// <summary>
     /// Initializes the <see cref="WpfGraphControl"/> class.
     /// </summary>
     static WpfGraphControl()

@@ -3,12 +3,15 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:local="clr-namespace:RealTimeGraphX.WPF">
 
+    <!-- Converters -->
+    <BooleanToVisibilityConverter x:Key="BoolToVis" />
+
     <Style x:Key="AxisCaptionStyle" TargetType="TextBlock">
         <Setter Property="HorizontalAlignment" Value="Center"/>
         <Setter Property="VerticalAlignment" Value="Center"/>
         <Setter Property="Margin" Value="10"/>
-        <!-- These triggers hide the TextBlock if the text is empty. 
-             I have placed the captions in a grid column/row with Width/Height = "Auto", 
+        <!-- These triggers hide the TextBlock if the text is empty.
+             I have placed the captions in a grid column/row with Width/Height = "Auto",
              so they should collapse completely if there is no caption. -->
         <Style.Triggers>
             <Trigger Property="Text" Value="">
@@ -24,9 +27,9 @@
         <Setter Property="ToolTipTemplate">
             <Setter.Value>
                 <DataTemplate>
-                    <Border 
+                    <Border
                         Opacity="0.8"
-                        BorderThickness="1" 
+                        BorderThickness="1"
                         Padding="10 5"
                         CornerRadius="5"
                         BorderBrush="{Binding RelativeSource={RelativeSource AncestorType=local:WpfGraphSurface},Path=BorderBrush}"
@@ -190,8 +193,8 @@
     </Style>
 
   <Style TargetType="{x:Type local:WpfGraphControl}">
-    <Setter Property="StringFormatX" Value="0.0"></Setter>
-    <Setter Property="StringFormatY" Value="hh\:mm\:ss"></Setter>
+    <Setter Property="StringFormatX" Value="hh\:mm\:ss"></Setter>
+    <Setter Property="StringFormatY" Value="0.0"></Setter>
     <Setter Property="BorderThickness" Value="1"></Setter>
     <Setter Property="BorderBrush" Value="#FF2E2E2E"></Setter>
     <Setter Property="Padding" Value="20 20 30 20"></Setter>
@@ -209,35 +212,55 @@
       <Setter.Value>
         <ControlTemplate TargetType="{x:Type local:WpfGraphControl}">
           <Border Background="{TemplateBinding Background}"
-                            BorderBrush="{TemplateBinding BorderBrush}"
-                            BorderThickness="{TemplateBinding BorderThickness}"
-                            CornerRadius="5"
-                            Padding="{TemplateBinding Padding}">
+                  BorderBrush="{TemplateBinding BorderBrush}"
+                  BorderThickness="{TemplateBinding BorderThickness}"
+                  CornerRadius="{TemplateBinding CornerRadius}"
+                  Padding="{TemplateBinding Padding}">
             <Grid>
               <Grid.RowDefinitions>
                 <RowDefinition Height="1*"/>
-                <RowDefinition Height="35"/>
+                <RowDefinition Height="Auto"/>
                 <RowDefinition Height="Auto"/>
               </Grid.RowDefinitions>
               <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="Auto"/>
-                <ColumnDefinition Width="70"/>
+                <ColumnDefinition Width="Auto"/>
                 <ColumnDefinition Width="1*"/>
               </Grid.ColumnDefinitions>
 
+              <!-- Y Caption -->
               <TextBlock Grid.Row="0" Grid.Column="0" Text="{TemplateBinding AxisCaptionY}" Style="{StaticResource AxisCaptionStyle}">
                 <TextBlock.LayoutTransform>
                   <RotateTransform Angle="-90"/>
                 </TextBlock.LayoutTransform>
               </TextBlock>
 
-              <Grid Grid.Column="2">
+              <!-- Plot area -->
+              <Grid Grid.Row="0" Grid.Column="2">
                 <local:WpfGraphGridLines Controller="{TemplateBinding Controller}" Foreground="{TemplateBinding GridLinesBrush}" />
                 <local:WpfGraphSurface x:Name="surface" Controller="{TemplateBinding Controller}" DisplayToolTip="{TemplateBinding DisplayToolTip}" BorderThickness="1" BorderBrush="{TemplateBinding Foreground}" />
               </Grid>
 
-              <local:WpfGraphAxisControl Orientation="Vertical" Controller="{TemplateBinding Controller}" Grid.Column="1" Grid.Row="0" StringFormat="{TemplateBinding StringFormatX}" />
-              <local:WpfGraphAxisControl Orientation="Horizontal" Controller="{TemplateBinding Controller}" Grid.Column="2" Grid.Row="1" StringFormat="{TemplateBinding StringFormatY}"/>
+              <!-- Y Axis -->
+              <!-- For some reason, TemplateBinding on the width does not work. -->
+              <local:WpfGraphAxisControl Orientation="Vertical"
+                                         Controller="{TemplateBinding Controller}"
+                                         Grid.Column="1"
+                                         Grid.Row="0"
+                                         Width="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=WidthAxisY}"
+                                         Visibility="{TemplateBinding ShowAxisY, Converter={StaticResource BoolToVis}}"
+                                         StringFormat="{TemplateBinding StringFormatY}" />
+
+              <!-- X Axis -->
+              <local:WpfGraphAxisControl Orientation="Horizontal"
+                                         Controller="{TemplateBinding Controller}"
+                                         Grid.Column="2"
+                                         Grid.Row="1"
+                                         Height="35"
+                                         Visibility="{TemplateBinding ShowAxisX, Converter={StaticResource BoolToVis}}"
+                                         StringFormat="{TemplateBinding StringFormatX}"/>
+
+              <!-- X Caption -->
               <TextBlock Grid.Column="2" Grid.Row="2" Text="{TemplateBinding AxisCaptionX}" Style="{StaticResource AxisCaptionStyle}"/>
 
             </Grid>

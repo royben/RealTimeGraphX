@@ -48,7 +48,7 @@ namespace RealTimeGraphX.WPF
       set { SetValue(StringFormatXProperty, value); }
     }
     public static readonly DependencyProperty StringFormatXProperty =
-        DependencyProperty.Register("StringFormatX", typeof(String), typeof(WpfGraphControl), new PropertyMetadata("0.0"));
+        DependencyProperty.Register("StringFormatX", typeof(String), typeof(WpfGraphControl), new PropertyMetadata("hh\\:mm\\:ss"));
 
     /// <summary>
     /// Gets or sets the string format for the Y Axis.
@@ -59,7 +59,7 @@ namespace RealTimeGraphX.WPF
       set { SetValue(StringFormatYProperty, value); }
     }
     public static readonly DependencyProperty StringFormatYProperty =
-        DependencyProperty.Register("StringFormatY", typeof(String), typeof(WpfGraphControl), new PropertyMetadata("hh\\:mm\\:ss"));
+        DependencyProperty.Register("StringFormatY", typeof(String), typeof(WpfGraphControl), new PropertyMetadata("0.0"));
 
 
     /// <summary>
@@ -94,6 +94,50 @@ namespace RealTimeGraphX.WPF
     }
     public static readonly DependencyProperty GridLinesBrushProperty =
         DependencyProperty.Register( "GridLinesBrush", typeof(Brush), typeof(WpfGraphControl), new PropertyMetadata((SolidColorBrush)new BrushConverter().ConvertFrom("#FF2E2E2E")) ) ;
+
+    /// <summary>
+    /// Gets or sets the corner radius for the border
+    /// </summary>
+    public CornerRadius CornerRadius
+    {
+      get { return (CornerRadius)GetValue(CornerRadiusProperty); }
+      set { SetValue(CornerRadiusProperty, value); }
+    }
+    public static readonly DependencyProperty CornerRadiusProperty =
+        DependencyProperty.Register( "CornerRadius", typeof(CornerRadius), typeof(WpfGraphControl), new PropertyMetadata(new CornerRadius(5)) ) ;
+
+    /// <summary>
+    /// Boolean property so show or hide the X-Axis
+    /// </summary>
+    public bool ShowAxisX
+    {
+      get { return (bool)GetValue(ShowAxisXProperty); }
+      set { SetValue(ShowAxisXProperty, value); }
+    }
+    public static readonly DependencyProperty ShowAxisXProperty =
+        DependencyProperty.Register("ShowAxisX", typeof(bool), typeof(WpfGraphControl), new PropertyMetadata(true));
+
+    /// <summary>
+    /// Boolean property so show or hide the Y-Axis
+    /// </summary>
+    public bool ShowAxisY
+    {
+      get { return (bool)GetValue(ShowAxisYProperty); }
+      set { SetValue(ShowAxisYProperty, value); }
+    }
+    public static readonly DependencyProperty ShowAxisYProperty =
+        DependencyProperty.Register("ShowAxisY", typeof(bool), typeof(WpfGraphControl), new PropertyMetadata(true));
+
+    /// <summary>
+    /// Width of the Y axis, default 70.
+    /// </summary>
+    public int WidthAxisY
+    {
+      get { return (int)GetValue(WidthAxisYProperty); }
+      set { SetValue(WidthAxisYProperty, value); }
+    }
+    public static readonly DependencyProperty WidthAxisYProperty =
+        DependencyProperty.Register("WidthAxisY", typeof(int), typeof(WpfGraphControl), new PropertyMetadata(70));
 
     /// <summary>
     /// Initializes the <see cref="WpfGraphControl"/> class.

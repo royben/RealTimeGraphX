@@ -314,6 +314,22 @@ namespace RealTimeGraphX
                 {
                     min_x = _to_render.First().Value.XX.First();
                     max_x = _to_render.First().Value.XX.Last();
+
+                    if ( ( max_x - min_x ) < _range.MaximumX )
+                    {
+                        switch ( _range.XStartBehavior )
+                        {
+                            case XStartBehavior.stretchData:
+                                // Original behavior. No action necessary.
+                                break ;
+                            case XStartBehavior.slideInFromRight:
+                                min_x = max_x - _range.MaximumX ;
+                                break ;
+                            case XStartBehavior.fillFromLeft:
+                                max_x = min_x + _range.MaximumX ;
+                                break ;
+                        }
+                    }
                 }
                 else
                 {

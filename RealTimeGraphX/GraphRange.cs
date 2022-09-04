@@ -7,6 +7,31 @@ using System.Threading.Tasks;
 namespace RealTimeGraphX
 {
     /// <summary>
+    /// This enum defines the initial behaviour, when there is not enough new data to fill the X-Axis.
+    /// </summary>
+    public enum XStartBehavior
+    {
+      /// <summary>
+      /// The option strechData means that the initial data will be stretched to fill the
+      /// X-Axis. As new data arrives, the data will be squeezed until the specified range
+      /// for the X-Axis has been reached. After that the data will scroll to the left.
+      /// </summary>
+      stretchData,
+      /// <summary>
+      /// The option slideInFromRight means that the range of the X-Axis is fixed. New
+      /// data will appear at the right of the diagram and scroll to the left. The data
+      /// scrolls from very beginning.
+      /// </summary>
+      slideInFromRight,
+      /// <summary>
+      /// The option fillFromLeft means that the range of the X-Axis is fixed. New Data
+      /// is drawn relative to the left hand side and does not scroll at all until the 
+      /// specified range of the X-Axis is full. After that the data will scroll to the left.
+      /// </summary>
+      fillFromLeft
+    }
+
+    /// <summary>
     ///  Represents a graph x/y data points boundaries.
     /// </summary>
     public interface IGraphRange : IGraphComponent
@@ -40,6 +65,12 @@ namespace RealTimeGraphX
         /// Gets or sets the AutoY fallback margins when <see cref="AutoYFallbackMode"/> is set to Margins.
         /// </summary>
         GraphDataPoint AutoYFallBackMargins { get; set; }
+
+        /// <summary>
+        /// This property defines how data is displayed in the initial period, before the MaximumX has been reached.
+        /// The options are streching the data, sliding the data in from the right, or filling the data from the left.
+        /// </summary>
+        XStartBehavior  XStartBehavior { get; set; }
     }
 
     /// <summary>
@@ -180,6 +211,17 @@ namespace RealTimeGraphX
             {
                 AutoYFallbackMargins = (YDataPoint)value;
             }
+        }
+
+        private XStartBehavior _xStartBehavior = XStartBehavior.stretchData ;
+        /// <summary>
+        /// This property defines how data is displayed in the initial period, before the MaximumX has been reached.
+        /// The options are streching the data, sliding the data in from the right, or filling the data from the left.
+        /// </summary>
+        public XStartBehavior XStartBehavior 
+        { 
+            get { return _xStartBehavior; }
+            set { _xStartBehavior = value; RaisePropertyChangedAuto(); }
         }
     }
 }

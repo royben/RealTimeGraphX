@@ -140,6 +140,28 @@ namespace RealTimeGraphX.WPF
         DependencyProperty.Register("WidthAxisY", typeof(int), typeof(WpfGraphControl), new PropertyMetadata(70));
 
     /// <summary>
+    /// Number of divisions in the Y axis
+    /// </summary>
+    public int DivisionsY
+    {
+      get { return (int)GetValue(DivisionsYProperty); }
+      set { SetValue(DivisionsYProperty, value); }
+    }
+    public static readonly DependencyProperty DivisionsYProperty =
+        DependencyProperty.Register("DivisionsY", typeof(int), typeof(WpfGraphControl), new PropertyMetadata(8));
+
+    /// <summary>
+    /// Number of divisions in the X axis
+    /// </summary>
+    public int DivisionsX
+    {
+      get { return (int)GetValue(DivisionsXProperty); }
+      set { SetValue(DivisionsXProperty, value); }
+    }
+    public static readonly DependencyProperty DivisionsXProperty =
+        DependencyProperty.Register("DivisionsX", typeof(int), typeof(WpfGraphControl), new PropertyMetadata(8));
+
+    /// <summary>
     /// Initializes the <see cref="WpfGraphControl"/> class.
     /// </summary>
     static WpfGraphControl()

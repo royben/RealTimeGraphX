@@ -45,10 +45,12 @@
                                           Background="White"
                                           Foreground="Black"
                                           GridLinesBrush="LightGray"
-                                          ShowAxisX="False"
+                                          ShowAxisX="True"
                                           ShowAxisY="True"
                                           CornerRadius="0"
                                           WidthAxisY="50"
+                                          DivisionsY="10"
+                                          DivisionsX="12"
                                           Padding="5 15"
                                           StringFormatY="0.000"/>
 

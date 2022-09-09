@@ -68,16 +68,18 @@ namespace RealTimeGraphX.WPF
         public static readonly DependencyProperty ItemsProperty =
             DependencyProperty.Register("Items", typeof(ObservableCollection<WpfGraphAxisTickData>), typeof(WpfGraphAxisControl), new PropertyMetadata(null));
 
+        internal int Ticks => Divisions + 1 ;
+
         /// <summary>
-        /// Gets or sets the number of ticks to display on the control.
+        /// Gets or sets the number of divisions to display on the control.
         /// </summary>
-        public int Ticks
+        public int Divisions
         {
-            get { return (int)GetValue(TicksProperty); }
-            set { SetValue(TicksProperty, value); }
+            get { return (int)GetValue(DivisionsProperty); }
+            set { SetValue(DivisionsProperty, value); }
         }
-        public static readonly DependencyProperty TicksProperty =
-            DependencyProperty.Register("Ticks", typeof(int), typeof(WpfGraphAxisControl), new PropertyMetadata(9, (d, e) => (d as WpfGraphAxisControl).OnTicksChanged()));
+        public static readonly DependencyProperty DivisionsProperty =
+            DependencyProperty.Register("Divisions", typeof(int), typeof(WpfGraphAxisControl), new PropertyMetadata(8, (d, e) => (d as WpfGraphAxisControl).OnDivisionsChanged()));
 
         /// <summary>
         /// Gets or sets the string format which is used to format the ticks value.
@@ -99,13 +101,13 @@ namespace RealTimeGraphX.WPF
 
             _items_control = GetTemplateChild("PART_ItemsControl") as ItemsControl;
 
-            _items_control.Loaded += (x, e) => 
+            _items_control.Loaded += (x, e) =>
             {
                 ItemsPresenter itemsPresenter = GetVisualChild<ItemsPresenter>(_items_control);
                 _axisPanel = VisualTreeHelper.GetChild(itemsPresenter, 0) as WpfGraphAxisPanel;
             };
 
-            OnTicksChanged();
+            OnDivisionsChanged();
         }
 
         private static T GetVisualChild<T>(DependencyObject parent) where T : Visual
@@ -129,10 +131,24 @@ namespace RealTimeGraphX.WPF
             return child;
         }
 
+#if false
         /// <summary>
         /// Called when the <see cref="Ticks"/> property has changed.
         /// </summary>
         protected virtual void OnTicksChanged()
+        {
+            Items = new ObservableCollection<WpfGraphAxisTickData>(Enumerable.Range(0, Ticks).Select(x => new WpfGraphAxisTickData()));
+
+            Controller?.RequestVirtualRangeChange();
+
+            _axisPanel?.UpdatePanel();
+        }
+#endif
+
+        /// <summary>
+        /// Called when the <see cref="Divisions"/> property has changed.
+        /// </summary>
+        protected virtual void OnDivisionsChanged()
         {
             Items = new ObservableCollection<WpfGraphAxisTickData>(Enumerable.Range(0, Ticks).Select(x => new WpfGraphAxisTickData()));
 

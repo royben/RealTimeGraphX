@@ -189,5 +189,21 @@ namespace RealTimeGraphX.DataPoints
         {
             return new Int32DataPoint(1);
         }
+
+        /// <summary>
+        /// Expands the range by adding factor * ( max - min ) to the max and subtracting the same value from the min.
+        /// </summary>
+        /// <param name="min"></param>
+        /// <param name="max"></param>
+        /// <param name="factor"></param>
+        public override void ExpandRange ( ref GraphDataPoint min, ref GraphDataPoint max, double factor )
+        {
+            int minimum = (int)min.GetValue();
+            int maximum = (int)max.GetValue();
+            int delta   = maximum - minimum ;
+            int margin  = (int)(factor * delta) ;
+            max = new Int32DataPoint ( (max as Int32DataPoint).Value + margin ) ;
+            min = new Int32DataPoint ( (min as Int32DataPoint).Value - margin ) ;
+        }
     }
 }

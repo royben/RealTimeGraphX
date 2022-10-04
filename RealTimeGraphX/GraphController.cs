@@ -314,6 +314,22 @@ namespace RealTimeGraphX
                 {
                     min_x = _to_render.First().Value.XX.First();
                     max_x = _to_render.First().Value.XX.Last();
+
+                    if ( ( max_x - min_x ) < _range.MaximumX )
+                    {
+                        switch ( _range.XStartBehavior )
+                        {
+                            case XStartBehavior.stretchData:
+                                // Original behavior. No action necessary.
+                                break ;
+                            case XStartBehavior.slideInFromRight:
+                                min_x = max_x - _range.MaximumX ;
+                                break ;
+                            case XStartBehavior.fillFromLeft:
+                                max_x = min_x + _range.MaximumX ;
+                                break ;
+                        }
+                    }
                 }
                 else
                 {
@@ -324,6 +340,11 @@ namespace RealTimeGraphX
                 {
                     min_y = _to_render.Select(x => x.Value).SelectMany(x => x.YY).Min();
                     max_y = _to_render.Select(x => x.Value).SelectMany(x => x.YY).Max();
+
+                    // Note: The "this" object to which this method is applied is not used,
+                    // making it like a static method (but abstract). I'm not really happy
+                    // with this structure.
+                    min_y.ExpandRange ( ref min_y, ref max_y, 0.05 ) ;
                 }
 
                 if (min_y == max_y)

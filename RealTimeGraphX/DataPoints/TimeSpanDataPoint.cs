@@ -186,5 +186,21 @@ namespace RealTimeGraphX.DataPoints
         {
             return new TimeSpanDataPoint(TimeSpan.FromSeconds(1));
         }
+
+        /// <summary>
+        /// Expands the range by adding factor * ( max - min ) to the max and subtracting the same value from the min.
+        /// </summary>
+        /// <param name="min"></param>
+        /// <param name="max"></param>
+        /// <param name="factor"></param>
+        public override void ExpandRange ( ref GraphDataPoint min, ref GraphDataPoint max, double factor )
+        {
+            double minimum = ((TimeSpan)min.GetValue()).TotalMilliseconds;
+            double maximum = ((TimeSpan)max.GetValue()).TotalMilliseconds;
+            double delta   = maximum - minimum ;
+            double margin  = factor * delta ;
+            max = new TimeSpanDataPoint ( TimeSpan.FromMilliseconds ( maximum + margin ) ) ;
+            min = new TimeSpanDataPoint ( TimeSpan.FromMilliseconds ( minimum - margin ) ) ;
+        }
     }
 }

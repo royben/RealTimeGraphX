@@ -184,5 +184,21 @@ namespace RealTimeGraphX.DataPoints
         {
             return new DateTimeDataPoint(new DateTime(1, 1, 1, 1, 1, 1));
         }
+
+        /// <summary>
+        /// Expands the range by adding factor * ( max - min ) to the max and subtracting the same value from the min.
+        /// </summary>
+        /// <param name="min"></param>
+        /// <param name="max"></param>
+        /// <param name="factor"></param>
+        public override void ExpandRange ( ref GraphDataPoint min, ref GraphDataPoint max, double factor )
+        {
+            DateTime dMin   = min as DateTimeDataPoint;
+            DateTime dMax   = max as DateTimeDataPoint;
+            long     delta  = dMax.Ticks - dMin.Ticks ;
+            long     margin = (long)(factor * delta) ;
+            max = new DateTimeDataPoint ( new DateTime ( dMax.Ticks + margin ) ) ;
+            min = new DateTimeDataPoint ( new DateTime ( dMin.Ticks - margin ) ) ;
+        }
     }
 }

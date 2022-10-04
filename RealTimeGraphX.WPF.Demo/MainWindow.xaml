@@ -10,194 +10,209 @@
         mc:Ignorable="d"
         Title="RealtimeGraphX WPF Demo" Height="587" Width="1168.5" d:DataContext="{d:DesignData Type=local:MainWindowVM, IsDesignTimeCreatable=False}">
 
-    <Window.Resources>
+  <Window.Resources>
 
-        <converters:ObjectEqualityConverter x:Key="ObjectEqualityConverter" />
+    <converters:ObjectEqualityConverter x:Key="ObjectEqualityConverter" />
 
-        <collections:ArrayList x:Key="colors">
-            <Color>DodgerBlue</Color>
-            <Color>Red</Color>
-            <Color>Green</Color>
-        </collections:ArrayList>
+    <collections:ArrayList x:Key="colors">
+      <Color>DodgerBlue</Color>
+      <Color>Red</Color>
+      <Color>Green</Color>
+    </collections:ArrayList>
 
-        <collections:ArrayList x:Key="brushes">
-            <SolidColorBrush Color="Transparent"></SolidColorBrush>
-            <SolidColorBrush Color="#861E90FF"></SolidColorBrush>
-            <LinearGradientBrush>
-                <GradientStop Offset="0" Color="#86FF0000" />
-                <GradientStop Offset="1" Color="#80FFFF00" />
-            </LinearGradientBrush>
-        </collections:ArrayList>
-    </Window.Resources>
+    <collections:ArrayList x:Key="brushes">
+      <SolidColorBrush Color="Transparent"></SolidColorBrush>
+      <SolidColorBrush Color="#861E90FF"></SolidColorBrush>
+      <LinearGradientBrush>
+        <GradientStop Offset="0" Color="#86FF0000" />
+        <GradientStop Offset="1" Color="#80FFFF00" />
+      </LinearGradientBrush>
+    </collections:ArrayList>
+  </Window.Resources>
 
-    <Grid>
-        <TabControl Background="Transparent" Margin="20">
-            <TabItem Header="Single Series">
-                <Grid>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="1*"/>
-                        <ColumnDefinition Width="200"/>
-                    </Grid.ColumnDefinitions>
-                    <local:WpfGraphControl x:Name="graph" Margin="10" Controller="{Binding Controller}" />
+  <Grid>
+    <TabControl Background="Transparent" Margin="20">
+      <TabItem Header="Single Series">
+        <Grid>
+          <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="1*"/>
+            <ColumnDefinition Width="200"/>
+          </Grid.ColumnDefinitions>
+          <realTimeGraphX:WpfGraphControl x:Name="graph" Margin="10"
+                                          Controller="{Binding Controller}"
+                                          AxisCaptionX="Time [s]"
+                                          AxisCaptionY="Voltage [V]"
+                                          Background="White"
+                                          Foreground="Black"
+                                          GridLinesBrush="LightGray"
+                                          ShowAxisX="True"
+                                          ShowAxisY="True"
+                                          CornerRadius="0"
+                                          WidthAxisY="50"
+                                          DivisionsY="10"
+                                          DivisionsX="12"
+                                          Padding="5 15"
+                                          StringFormatY="0.000"/>
 
-                    <Border Grid.Column="1" Margin="10" BorderBrush="Gray" BorderThickness="1" CornerRadius="5" Padding="5">
-                        <StackPanel>
-                            <TextBlock FontSize="10">Duration</TextBlock>
-                            <TextBox Margin="0 5 0 0" Text="{Binding Controller.Range.MaximumX,Mode=TwoWay}"></TextBox>
+          <Border Grid.Column="1" Margin="10" BorderBrush="Gray" BorderThickness="1" CornerRadius="5" Padding="5">
+            <StackPanel>
+              <TextBlock FontSize="10">Duration</TextBlock>
+              <TextBox Margin="0 5 0 0" Text="{Binding Controller.Range.MaximumX,Mode=TwoWay}"></TextBox>
 
-                            <TextBlock FontSize="10" Margin="0 10 0 0">Refresh Rate</TextBlock>
-                            <TextBox Margin="0 5 0 0" Text="{Binding Controller.RefreshRate,Mode=TwoWay}"></TextBox>
+              <TextBlock FontSize="10" Margin="0 10 0 0">Refresh Rate</TextBlock>
+              <TextBox Margin="0 5 0 0" Text="{Binding Controller.RefreshRate,Mode=TwoWay}"></TextBox>
 
-                            <TextBlock FontSize="10" Margin="0 10 0 0">Minimum Y</TextBlock>
-                            <TextBox Margin="0 5 0 0" Text="{Binding Controller.Range.MinimumY,Mode=TwoWay}"></TextBox>
+              <TextBlock FontSize="10" Margin="0 10 0 0">Minimum Y</TextBlock>
+              <TextBox Margin="0 5 0 0" Text="{Binding Controller.Range.MinimumY,Mode=TwoWay}"></TextBox>
 
-                            <TextBlock FontSize="10" Margin="0 10 0 0">Maximum Y</TextBlock>
-                            <TextBox Margin="0 5 0 0" Text="{Binding Controller.Range.MaximumY,Mode=TwoWay}"></TextBox>
+              <TextBlock FontSize="10" Margin="0 10 0 0">Maximum Y</TextBlock>
+              <TextBox Margin="0 5 0 0" Text="{Binding Controller.Range.MaximumY,Mode=TwoWay}"></TextBox>
 
-                            <CheckBox Margin="0 5 0 0" IsChecked="{Binding Controller.Range.AutoY,Mode=TwoWay}">Auto Range (Y)</CheckBox>
+              <CheckBox Margin="0 5 0 0" IsChecked="{Binding Controller.Range.AutoY,Mode=TwoWay}">Auto Range (Y)</CheckBox>
 
-                            <TextBlock FontSize="10" Margin="0 20 0 0">Stroke</TextBlock>
-                            <ComboBox Margin="0 5 0 0" ItemsSource="{StaticResource colors}" SelectedItem="{Binding Controller.DataSeriesCollection[0].Stroke}"/>
+              <TextBlock FontSize="10" Margin="0 20 0 0">Stroke</TextBlock>
+              <ComboBox Margin="0 5 0 0" ItemsSource="{StaticResource colors}" SelectedItem="{Binding Controller.DataSeriesCollection[0].Stroke}"/>
 
-                            <TextBlock FontSize="10" Margin="0 10 0 0">Thickness</TextBlock>
-                            <Slider Margin="0 5 0 0" Minimum="1" Maximum="5" Value="{Binding Controller.DataSeriesCollection[0].StrokeThickness}" IsSnapToTickEnabled="True" TickFrequency="1" />
+              <TextBlock FontSize="10" Margin="0 10 0 0">Thickness</TextBlock>
+              <Slider Margin="0 5 0 0" Minimum="1" Maximum="5" Value="{Binding Controller.DataSeriesCollection[0].StrokeThickness}" IsSnapToTickEnabled="True" TickFrequency="1" />
 
-                            <TextBlock FontSize="10" Margin="0 10 0 0">Fill</TextBlock>
-                            <ComboBox Margin="0 5 0 0" ItemsSource="{StaticResource brushes}" SelectedItem="{Binding Controller.DataSeriesCollection[0].Fill}"/>
+              <TextBlock FontSize="10" Margin="0 10 0 0">Fill</TextBlock>
+              <ComboBox Margin="0 5 0 0" ItemsSource="{StaticResource brushes}" SelectedItem="{Binding Controller.DataSeriesCollection[0].Fill}"/>
 
-                            <CheckBox Margin="0 10 0 0" IsChecked="{Binding ElementName=graph,Path=DisplayToolTip}">Display ToolTip</CheckBox>
+              <CheckBox Margin="0 10 0 0" IsChecked="{Binding ElementName=graph,Path=DisplayToolTip}">Display ToolTip</CheckBox>
 
-                            <CheckBox Margin="0 10 0 0" IsChecked="{Binding Controller.IsPaused,Mode=TwoWay}">Paused</CheckBox>
+              <CheckBox Margin="0 10 0 0" IsChecked="{Binding Controller.IsPaused,Mode=TwoWay}">Paused</CheckBox>
 
-                            <Button Margin="0 10 0 0" Padding="5" Command="{Binding Controller.ClearCommand}">Clear</Button>
-                        </StackPanel>
-                    </Border>
-                </Grid>
-            </TabItem>
-            <TabItem Header="Multi Series">
-                <Grid>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="1*"/>
-                        <ColumnDefinition Width="200"/>
-                    </Grid.ColumnDefinitions>
-                    <local:WpfGraphControl Margin="10" Controller="{Binding MultiController}" />
+              <Button Margin="0 10 0 0" Padding="5" Command="{Binding Controller.ClearCommand}">Clear</Button>
+            </StackPanel>
+          </Border>
+        </Grid>
+      </TabItem>
+      <TabItem Header="Multi Series">
+        <Grid>
+          <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="51*"/>
+            <ColumnDefinition Width="872*"/>
+            <ColumnDefinition Width="200"/>
+          </Grid.ColumnDefinitions>
+          <realTimeGraphX:WpfGraphControl Margin="10,10,10,10" Controller="{Binding MultiController}" Grid.ColumnSpan="2" />
 
-                    <Border Grid.Column="1" Margin="10" BorderBrush="Gray" BorderThickness="1" CornerRadius="5" Padding="5">
-                        <StackPanel>
-                            <TextBlock FontSize="10">Duration</TextBlock>
-                            <TextBox Margin="0 5 0 0" Text="{Binding MultiController.Range.MaximumX,Mode=TwoWay}"></TextBox>
+          <Border Grid.Column="2" Margin="10,10,10,10" BorderBrush="Gray" BorderThickness="1" CornerRadius="5" Padding="5">
+            <StackPanel>
+              <TextBlock FontSize="10">Duration</TextBlock>
+              <TextBox Margin="0 5 0 0" Text="{Binding MultiController.Range.MaximumX,Mode=TwoWay}"></TextBox>
 
-                            <TextBlock FontSize="10" Margin="0 10 0 0">Refresh Rate</TextBlock>
-                            <TextBox Margin="0 5 0 0" Text="{Binding MultiController.RefreshRate,Mode=TwoWay}"></TextBox>
+              <TextBlock FontSize="10" Margin="0 10 0 0">Refresh Rate</TextBlock>
+              <TextBox Margin="0 5 0 0" Text="{Binding MultiController.RefreshRate,Mode=TwoWay}"></TextBox>
 
-                            <TextBlock FontSize="10" Margin="0 10 0 0">Minimum Y</TextBlock>
-                            <TextBox Margin="0 5 0 0" Text="{Binding MultiController.Range.MinimumY,Mode=TwoWay}"></TextBox>
+              <TextBlock FontSize="10" Margin="0 10 0 0">Minimum Y</TextBlock>
+              <TextBox Margin="0 5 0 0" Text="{Binding MultiController.Range.MinimumY,Mode=TwoWay}"></TextBox>
 
-                            <TextBlock FontSize="10" Margin="0 10 0 0">Maximum Y</TextBlock>
-                            <TextBox Margin="0 5 0 0" Text="{Binding MultiController.Range.MaximumY,Mode=TwoWay}"></TextBox>
+              <TextBlock FontSize="10" Margin="0 10 0 0">Maximum Y</TextBlock>
+              <TextBox Margin="0 5 0 0" Text="{Binding MultiController.Range.MaximumY,Mode=TwoWay}"></TextBox>
 
-                            <CheckBox Margin="0 5 0 0" IsChecked="{Binding MultiController.Range.AutoY,Mode=TwoWay}">Auto Range (Y)</CheckBox>
+              <CheckBox Margin="0 5 0 0" IsChecked="{Binding MultiController.Range.AutoY,Mode=TwoWay}">Auto Range (Y)</CheckBox>
 
-                            <ListBox ItemsSource="{Binding MultiController.DataSeriesCollection}" Height="120" Margin="0 20">
-                                <ListBox.ItemTemplate>
-                                    <DataTemplate>
-                                        <StackPanel>
-                                            <CheckBox Content="{Binding Name}" IsChecked="{Binding IsVisible}" />
-                                        </StackPanel>
-                                    </DataTemplate>
-                                </ListBox.ItemTemplate>
-                            </ListBox>
+              <ListBox ItemsSource="{Binding MultiController.DataSeriesCollection}" Height="120" Margin="0 20">
+                <ListBox.ItemTemplate>
+                  <DataTemplate>
+                    <StackPanel>
+                      <CheckBox Content="{Binding Name}" IsChecked="{Binding IsVisible}" />
+                    </StackPanel>
+                  </DataTemplate>
+                </ListBox.ItemTemplate>
+              </ListBox>
 
-                            <Button Margin="0 10 0 0" Padding="5" Command="{Binding MultiController.ClearCommand}">Clear</Button>
-                        </StackPanel>
-                    </Border>
-                </Grid>
-            </TabItem>
+              <Button Margin="0 10 0 0" Padding="5" Command="{Binding MultiController.ClearCommand}">Clear</Button>
+            </StackPanel>
+          </Border>
+        </Grid>
+      </TabItem>
 
-            <TabItem Header="List Binding (Same Surface)">
-                <Grid>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="250"/>
-                        <ColumnDefinition Width="1*"/>
-                    </Grid.ColumnDefinitions>
+      <TabItem Header="List Binding (Same Surface)">
+        <Grid>
+          <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="250"/>
+            <ColumnDefinition Width="1*"/>
+          </Grid.ColumnDefinitions>
 
-                    <ListBox x:Name="listItems" ItemsSource="{Binding ListItems}" SelectedIndex="0">
-                        <ListBox.ItemTemplate>
-                            <DataTemplate>
-                                <StackPanel>
-                                    <TextBlock Text="{Binding Name}" FontWeight="SemiBold">
-                                        <TextBlock.Foreground>
-                                            <SolidColorBrush Color="{Binding Color}" />
-                                        </TextBlock.Foreground>
-                                    </TextBlock>
-                                    <TextBlock Foreground="DimGray" FontSize="11">
+          <ListBox x:Name="listItems" ItemsSource="{Binding ListItems}" SelectedIndex="0">
+            <ListBox.ItemTemplate>
+              <DataTemplate>
+                <StackPanel>
+                  <TextBlock Text="{Binding Name}" FontWeight="SemiBold">
+                    <TextBlock.Foreground>
+                      <SolidColorBrush Color="{Binding Color}" />
+                    </TextBlock.Foreground>
+                  </TextBlock>
+                  <TextBlock Foreground="DimGray" FontSize="11">
                                         <Run>Format:</Run>
                                         <Run Text="{Binding StringFormat,Mode=OneWay}"></Run>
-                                    </TextBlock>
-                                </StackPanel>
-                            </DataTemplate>
-                        </ListBox.ItemTemplate>
-                    </ListBox>
+                  </TextBlock>
+                </StackPanel>
+              </DataTemplate>
+            </ListBox.ItemTemplate>
+          </ListBox>
 
-                    <local:WpfGraphControl Grid.Column="2" Margin="10" Controller="{Binding ElementName=listItems,Path=SelectedItem.Controller}" StringFormatX="{Binding ElementName=listItems,Path=SelectedItem.StringFormat}" />
-                </Grid>
-            </TabItem>
+          <realTimeGraphX:WpfGraphControl Grid.Column="2" Margin="10" Controller="{Binding ElementName=listItems,Path=SelectedItem.Controller}" StringFormatY="{Binding ElementName=listItems,Path=SelectedItem.StringFormat}" />
+        </Grid>
+      </TabItem>
 
-            <TabItem Header="List Binding (DIfferent Surfaces)">
-                <Grid>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="250"/>
-                        <ColumnDefinition Width="1*"/>
-                    </Grid.ColumnDefinitions>
+      <TabItem Header="List Binding (DIfferent Surfaces)">
+        <Grid>
+          <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="250"/>
+            <ColumnDefinition Width="1*"/>
+          </Grid.ColumnDefinitions>
 
-                    <ListBox x:Name="listItems2" ItemsSource="{Binding ListItems2}" SelectedIndex="0">
-                        <ListBox.ItemTemplate>
-                            <DataTemplate>
-                                <StackPanel>
-                                    <TextBlock Text="{Binding Name}" FontWeight="SemiBold">
-                                        <TextBlock.Foreground>
-                                            <SolidColorBrush Color="{Binding Color}" />
-                                        </TextBlock.Foreground>
-                                    </TextBlock>
-                                    <TextBlock Foreground="DimGray" FontSize="11">
+          <ListBox x:Name="listItems2" ItemsSource="{Binding ListItems2}" SelectedIndex="0">
+            <ListBox.ItemTemplate>
+              <DataTemplate>
+                <StackPanel>
+                  <TextBlock Text="{Binding Name}" FontWeight="SemiBold">
+                    <TextBlock.Foreground>
+                      <SolidColorBrush Color="{Binding Color}" />
+                    </TextBlock.Foreground>
+                  </TextBlock>
+                  <TextBlock Foreground="DimGray" FontSize="11">
                                         <Run>Format:</Run>
                                         <Run Text="{Binding StringFormat,Mode=OneWay}"></Run>
-                                    </TextBlock>
-                                </StackPanel>
-                            </DataTemplate>
-                        </ListBox.ItemTemplate>
-                    </ListBox>
+                  </TextBlock>
+                </StackPanel>
+              </DataTemplate>
+            </ListBox.ItemTemplate>
+          </ListBox>
 
-                    <ItemsControl ItemsSource="{Binding ListItems2}" Grid.Column="1" Style="{x:Null}" BorderThickness="0">
-                        <ItemsControl.ItemsPanel>
-                            <ItemsPanelTemplate>
-                                <Grid></Grid>
-                            </ItemsPanelTemplate>
-                        </ItemsControl.ItemsPanel>
-                        <ItemsControl.ItemContainerStyle>
-                            <Style TargetType="FrameworkElement">
-                                <Setter Property="Visibility" Value="Hidden"></Setter>
-                                <Style.Triggers>
-                                    <DataTrigger Value="True">
-                                        <DataTrigger.Binding>
-                                            <MultiBinding Converter="{StaticResource ObjectEqualityConverter}">
-                                                <Binding ElementName="listItems2" Path="SelectedItem" />
-                                                <Binding RelativeSource="{RelativeSource Mode=Self}" Path="DataContext" />
-                                            </MultiBinding>
-                                        </DataTrigger.Binding>
-                                        <Setter Property="Visibility" Value="Visible"></Setter>
-                                    </DataTrigger>
-                                </Style.Triggers>
-                            </Style>
-                        </ItemsControl.ItemContainerStyle>
-                        <ItemsControl.ItemTemplate>
-                            <DataTemplate>
-                                <local:WpfGraphControl Grid.Column="2" Margin="10" Controller="{Binding Controller}" StringFormatX="{Binding StringFormat}" />
-                            </DataTemplate>
-                        </ItemsControl.ItemTemplate>
-                    </ItemsControl>
-                </Grid>
-            </TabItem>
-        </TabControl>
-    </Grid>
+          <ItemsControl ItemsSource="{Binding ListItems2}" Grid.Column="1" Style="{x:Null}" BorderThickness="0">
+            <ItemsControl.ItemsPanel>
+              <ItemsPanelTemplate>
+                <Grid></Grid>
+              </ItemsPanelTemplate>
+            </ItemsControl.ItemsPanel>
+            <ItemsControl.ItemContainerStyle>
+              <Style TargetType="FrameworkElement">
+                <Setter Property="Visibility" Value="Hidden"></Setter>
+                <Style.Triggers>
+                  <DataTrigger Value="True">
+                    <DataTrigger.Binding>
+                      <MultiBinding Converter="{StaticResource ObjectEqualityConverter}">
+                        <Binding ElementName="listItems2" Path="SelectedItem" />
+                        <Binding RelativeSource="{RelativeSource Mode=Self}" Path="DataContext" />
+                      </MultiBinding>
+                    </DataTrigger.Binding>
+                    <Setter Property="Visibility" Value="Visible"></Setter>
+                  </DataTrigger>
+                </Style.Triggers>
+              </Style>
+            </ItemsControl.ItemContainerStyle>
+            <ItemsControl.ItemTemplate>
+              <DataTemplate>
+                <realTimeGraphX:WpfGraphControl Grid.Column="2" Margin="10" Controller="{Binding Controller}" StringFormatY="{Binding StringFormat}" />
+              </DataTemplate>
+            </ItemsControl.ItemTemplate>
+          </ItemsControl>
+        </Grid>
+      </TabItem>
+    </TabControl>
+  </Grid>
 </Window>

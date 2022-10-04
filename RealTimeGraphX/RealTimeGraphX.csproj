@@ -3,7 +3,7 @@
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
     <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
-    <Version>1.0.0</Version>
+    <Version>1.0.0.3</Version>
     <Description>RealTimeGraphX is a data type agnostic, high performance plotting library for WPF and UWP.</Description>
     <PackageLicenseFile>LICENSE</PackageLicenseFile>
     <PackageProjectUrl>https://github.com/royben/RealTimeGraphX</PackageProjectUrl>
@@ -12,7 +12,7 @@
     <PackageTags>Chart;Graph;Plotting;RealTime;WPF;UWP</PackageTags>
     <Authors>Roy Ben Shabat</Authors>
     <Company>Roy Ben Shabat</Company>
-    <Configurations>Release</Configurations>
+    <Configurations>Release;Debug</Configurations>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">

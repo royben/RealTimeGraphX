@@ -256,6 +256,14 @@ namespace RealTimeGraphX
         /// <returns></returns>
         public abstract IGraphDataPoint GetDefaultMargins();
 
+        /// <summary>
+        /// Expands the range by adding factor * ( max - min ) to the max and subtracting the same value from the min.
+        /// </summary>
+        /// <param name="min"></param>
+        /// <param name="max"></param>
+        /// <param name="factor"></param>
+        public abstract void ExpandRange ( ref GraphDataPoint min, ref GraphDataPoint max, double factor ) ;
+
         #endregion
     }
 

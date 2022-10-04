@@ -32,11 +32,12 @@ namespace RealTimeGraphX.WPF.Demo
             Controller.Range.MaximumX = TimeSpan.FromSeconds(10);
             Controller.Range.AutoY = true;
             Controller.Range.AutoYFallbackMode = GraphRangeAutoYFallBackMode.MinMax;
+            Controller.Range.XStartBehavior = XStartBehavior.slideInFromRight ;
 
             Controller.DataSeriesCollection.Add(new WpfGraphDataSeries()
             {
                 Name = "Series",
-                Stroke = Colors.DodgerBlue,
+                Stroke = Colors.Red,
             });
 
             MultiController = new WpfGraphController<TimeSpanDataPoint, DoubleDataPoint>();
@@ -44,6 +45,7 @@ namespace RealTimeGraphX.WPF.Demo
             MultiController.Range.MaximumY = 1080;
             MultiController.Range.MaximumX = TimeSpan.FromSeconds(10);
             MultiController.Range.AutoY = true;
+            MultiController.Range.XStartBehavior = XStartBehavior.fillFromLeft ;
 
             MultiController.DataSeriesCollection.Add(new WpfGraphDataSeries()
             {

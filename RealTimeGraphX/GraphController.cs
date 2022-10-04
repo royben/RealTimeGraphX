@@ -340,6 +340,11 @@ namespace RealTimeGraphX
                 {
                     min_y = _to_render.Select(x => x.Value).SelectMany(x => x.YY).Min();
                     max_y = _to_render.Select(x => x.Value).SelectMany(x => x.YY).Max();
+
+                    // Note: The "this" object to which this method is applied is not used,
+                    // making it like a static method (but abstract). I'm not really happy
+                    // with this structure.
+                    min_y.ExpandRange ( ref min_y, ref max_y, 0.05 ) ;
                 }
 
                 if (min_y == max_y)
